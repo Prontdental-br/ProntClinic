@@ -75,7 +75,7 @@ spec:
         - name: redis-data
           mountPath: /data
       - name: prontclinic-api
-        image: prontdentalsoftware/prontclinic-api:ptcc-development-test-20251031175956
+        image: prontdentalsoftware/prontclinic-api:ptcc-development-test-20251031180742
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
