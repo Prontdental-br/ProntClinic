@@ -1,21 +1,17 @@
-name: Update Kubernetes Manifest - Painel
+name: Update Kubernetes Manifest - App
 
 on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: 'Tag da imagem (ex: ptcc-development-20251030192408)'
+        description: 'Tag da imagem (ex: ptcc-development-20251030195523)'
         required: true
       docker_image:
         description: 'Nome completo da imagem Docker'
         required: false
-        default: 'prontdentalsoftware/prontclinic-painel'
-  workflow_run:
-    workflows: ["Build and Push Docker Image"]
-    types:
-      - completed
+        default: 'prontdentalsoftware/prontclinic-app'
   repository_dispatch:
-    types: [update-manifest-painel]
+    types: [update-manifest-app]
 
 jobs:
   update-manifest:
@@ -28,10 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          repository: Prontdental-br/Infra-Clinic
-          path: repo
           ref: ptcc-development
-          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Determine image tag
         id: image_tag
@@ -42,24 +35,16 @@ jobs:
           elif [ "${{ github.event_name }}" == "repository_dispatch" ]; then
             echo "tag=${{ github.event.client_payload.image_tag }}" >> $GITHUB_OUTPUT
             echo "image=${{ github.event.client_payload.docker_image }}" >> $GITHUB_OUTPUT
-          elif [ "${{ github.event_name }}" == "workflow_run" ]; then
-            TAG="${{ github.event.workflow_run.head_branch }}"
-            if [ -z "$TAG" ]; then
-              TAG="ptcc-development-$(date +%Y%m%d%H%M%S)"
-            fi
-            echo "tag=${TAG}" >> $GITHUB_OUTPUT
-            echo "image=prontdentalsoftware/prontclinic-painel" >> $GITHUB_OUTPUT
           else
             TAG="ptcc-development-$(date +%Y%m%d%H%M%S)"
             echo "tag=${TAG}" >> $GITHUB_OUTPUT
-            echo "image=prontdentalsoftware/prontclinic-painel" >> $GITHUB_OUTPUT
+            echo "image=prontdentalsoftware/prontclinic-app" >> $GITHUB_OUTPUT
           fi
           
           echo "📦 Imagem: $(cat $GITHUB_OUTPUT | grep '^image=' | cut -d'=' -f2)"
           echo "🏷️  Tag: $(cat $GITHUB_OUTPUT | grep '^tag=' | cut -d'=' -f2)"
       
       - name: Update Kubernetes Deployment
-        working-directory: repo
         run: |
           IMAGE_TAG="${{ steps.image_tag.outputs.tag }}"
           IMAGE_NAME="${{ steps.image_tag.outputs.image }}"
@@ -68,30 +53,28 @@ jobs:
           echo "Atualizando manifest com imagem: ${FULL_IMAGE}"
           
           # Atualizar a imagem no deployment
-          sed -i "s|image: prontdentalsoftware/prontclinic-painel:.*|image: ${FULL_IMAGE}|g" \
-            k8s-manifests/development/prontclinic-painel/prontclinic-painel-deployment.yaml
+          sed -i "s|image: prontdentalsoftware/prontclinic-app:.*|image: ${FULL_IMAGE}|g" \
+            k8s-manifests/development/prontclinic-app/prontclinic-app-deployment.yaml
           
           echo "✅ Manifest atualizado: ${FULL_IMAGE}"
       
       - name: Configure Git
-        working-directory: repo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Commit and Push
-        working-directory: repo
         run: |
           IMAGE_TAG="${{ steps.image_tag.outputs.tag }}"
           
-          git add k8s-manifests/development/prontclinic-painel/prontclinic-painel-deployment.yaml
+          git add k8s-manifests/development/prontclinic-app/prontclinic-app-deployment.yaml
           
           if git diff --staged --quiet; then
             echo "Nenhuma mudança para commitar"
           else
-            git commit -m "chore: atualizar prontclinic-painel para ${IMAGE_TAG}
+            git commit -m "chore: atualizar prontclinic-app para ${IMAGE_TAG}
 
-            - Atualizada imagem para prontdentalsoftware/prontclinic-painel:${IMAGE_TAG}
+            - Atualizada imagem para prontdentalsoftware/prontclinic-app:${IMAGE_TAG}
             - Auto-atualizado via GitHub Actions workflow"
             
             git push origin ptcc-development

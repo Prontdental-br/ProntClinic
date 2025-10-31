@@ -28,8 +28,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          repository: Prontdental-br/Infra-Clinic
           path: repo
           ref: ptcc-development
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Determine image tag
         id: image_tag
@@ -67,7 +69,7 @@ jobs:
           
           # Atualizar a imagem no deployment
           sed -i "s|image: prontdentalsoftware/prontclinic-app:.*|image: ${FULL_IMAGE}|g" \
-            Infra-Clinic/k8s-manifests/development/prontclinic-app/prontclinic-app-deployment.yaml
+            k8s-manifests/development/prontclinic-app/prontclinic-app-deployment.yaml
           
           echo "✅ Manifest atualizado: ${FULL_IMAGE}"
       
@@ -82,7 +84,7 @@ jobs:
         run: |
           IMAGE_TAG="${{ steps.image_tag.outputs.tag }}"
           
-          git add Infra-Clinic/k8s-manifests/development/prontclinic-app/prontclinic-app-deployment.yaml
+          git add k8s-manifests/development/prontclinic-app/prontclinic-app-deployment.yaml
           
           if git diff --staged --quiet; then
             echo "Nenhuma mudança para commitar"

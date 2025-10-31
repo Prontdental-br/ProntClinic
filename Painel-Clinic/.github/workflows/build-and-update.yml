@@ -56,7 +56,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: Prontdental-br/ProntClinic
+          repository: Prontdental-br/Infra-Clinic
           event-type: update-manifest-painel
           client-payload: |
             {
