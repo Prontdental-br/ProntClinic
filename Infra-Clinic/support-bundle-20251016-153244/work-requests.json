@@ -1,0 +1,554 @@
+{
+  "data": [
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaakvc6brudt5w6fmjrzwg3p3zgxefczshfgldz3m362wuwykmrld5a",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaa5vlfmcn7oryhn6frslns6d2uj5q5q6pf7b6g4ldgqnnm4nm5tarq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaakwniwlccfddgiuczmm3oevq5xkzvkpj2xmbzjxxhuc2sstxm3iga"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-15T18:22:13+00:00",
+      "time-finished": "2025-10-15T18:43:51+00:00",
+      "time-started": "2025-10-15T18:22:22+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaap637rncn3btignlgwnc5a6ohe7lsghqr233ygoo5ww4f3lt4vzxq",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaa5vlfmcn7oryhn6frslns6d2uj5q5q6pf7b6g4ldgqnnm4nm5tarq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaakwniwlccfddgiuczmm3oevq5xkzvkpj2xmbzjxxhuc2sstxm3iga"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T18:48:19+00:00",
+      "time-finished": "2025-10-15T18:50:15+00:00",
+      "time-started": "2025-10-15T18:48:32+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.amaaaaaauye2lgqagtrchhyn3vppxqeatv7etynblbgzta7x67v7med5et5a",
+      "operation-type": "CLUSTER_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaakwniwlccfddgiuczmm3oevq5xkzvkpj2xmbzjxxhuc2sstxm3iga"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T18:53:40+00:00",
+      "time-finished": "2025-10-15T18:56:47+00:00",
+      "time-started": "2025-10-15T18:53:48+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaagu6g7ossiscboivgoroue2ztwjxnlcwccti4oi6ltwefdp5kxy5a",
+      "operation-type": "CLUSTER_CREATE",
+      "resources": [
+        {
+          "action-type": "CREATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaszs6m7aq2m3akgyhx3saqq6nyz7jqv35k3i5yfh2qc7cowqsenpa"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T20:25:36+00:00",
+      "time-finished": "2025-10-15T20:31:43+00:00",
+      "time-started": "2025-10-15T20:25:51+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaic3tdusamobawhexnligtau4fehn4tdxyfqklefrywaf7ipg672a",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaan4mbeltjowsfy25joaqlrvonqrqurw5lhoazzivfwnh3ttpvrfda"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaszs6m7aq2m3akgyhx3saqq6nyz7jqv35k3i5yfh2qc7cowqsenpa"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-15T20:35:34+00:00",
+      "time-finished": "2025-10-15T20:56:49+00:00",
+      "time-started": "2025-10-15T20:35:42+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaucvpdvgvneigsmhstxtltz3ing5okzz2zh4n6hlw5wzopv243f2q",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaan4mbeltjowsfy25joaqlrvonqrqurw5lhoazzivfwnh3ttpvrfda"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaszs6m7aq2m3akgyhx3saqq6nyz7jqv35k3i5yfh2qc7cowqsenpa"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T20:58:25+00:00",
+      "time-finished": "2025-10-15T21:00:15+00:00",
+      "time-started": "2025-10-15T20:58:32+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.amaaaaaauye2lgqacbyxydumrj4lqtnaddrjvlkuyupb5rqlaypggov73pta",
+      "operation-type": "CLUSTER_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaszs6m7aq2m3akgyhx3saqq6nyz7jqv35k3i5yfh2qc7cowqsenpa"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T21:05:00+00:00",
+      "time-finished": "2025-10-15T21:08:26+00:00",
+      "time-started": "2025-10-15T21:05:11+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaawplzhw2ty5tisuajxexnmlrmh7kdovpmpdrphfsolwgjvozxsufq",
+      "operation-type": "CLUSTER_CREATE",
+      "resources": [
+        {
+          "action-type": "CREATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaeypijarqjlawm4a2svylnkjqhjytupd24jjbk6h4ocpnd5z5ikiq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T21:21:09+00:00",
+      "time-finished": "2025-10-15T21:27:28+00:00",
+      "time-started": "2025-10-15T21:21:15+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaac2nxfdkx4wlhcca2mlnbaet7chn3lrckw2voe6qu2wy74roavoba",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaaocs7uobmmq3skxr3ylze7uefsrbfjce5vu3k5i4xins2gr5ndlfq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaeypijarqjlawm4a2svylnkjqhjytupd24jjbk6h4ocpnd5z5ikiq"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-15T21:28:47+00:00",
+      "time-finished": "2025-10-15T21:50:20+00:00",
+      "time-started": "2025-10-15T21:28:56+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaarhpwvfxfoseqhywrcold6yxnrhk42j673ank7en5vw46nkd7gezq",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaaocs7uobmmq3skxr3ylze7uefsrbfjce5vu3k5i4xins2gr5ndlfq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaeypijarqjlawm4a2svylnkjqhjytupd24jjbk6h4ocpnd5z5ikiq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-15T21:51:48+00:00",
+      "time-finished": "2025-10-15T21:53:02+00:00",
+      "time-started": "2025-10-15T21:52:03+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.amaaaaaauye2lgqano6rau6najkc2oanpgv2jhtrf7wvjiwgnc5inw2mggbq",
+      "operation-type": "CLUSTER_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaeypijarqjlawm4a2svylnkjqhjytupd24jjbk6h4ocpnd5z5ikiq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T00:04:55+00:00",
+      "time-finished": "2025-10-16T00:08:01+00:00",
+      "time-started": "2025-10-16T00:05:00+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaayv4xdkannrb75e2cvsxgmzlewnvw32xvkpozbxblnwywrjqiq7bq",
+      "operation-type": "CLUSTER_CREATE",
+      "resources": [
+        {
+          "action-type": "CREATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaae25sfyxwq6tff7ycfyt755fjr56s5vu6nnltg46xkczf2u5ewm4a"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T00:15:31+00:00",
+      "time-finished": "2025-10-16T00:21:47+00:00",
+      "time-started": "2025-10-16T00:15:43+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaomoytje4oa2hm4mov7ja4v7nupyjkuk7vhmyz2zypw4rit3mn72q",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaalco5foihvmey5r7rkjwf47iizllsgfi4vwxtk4u6bn5cktfahtfq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaae25sfyxwq6tff7ycfyt755fjr56s5vu6nnltg46xkczf2u5ewm4a"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-16T00:22:55+00:00",
+      "time-finished": "2025-10-16T00:44:20+00:00",
+      "time-started": "2025-10-16T00:22:59+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaupkg6n4xeoqd4x6tvy2ao2obqrvurc2cfcrjuzkyywinves6vd5a",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaalco5foihvmey5r7rkjwf47iizllsgfi4vwxtk4u6bn5cktfahtfq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaae25sfyxwq6tff7ycfyt755fjr56s5vu6nnltg46xkczf2u5ewm4a"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T00:45:52+00:00",
+      "time-finished": "2025-10-16T00:47:44+00:00",
+      "time-started": "2025-10-16T00:46:01+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaa756fzwifrgnpjqqigwpgqdas7t7tgnabpv2qlusynw7ilmt644qq",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaaqfxbzajo6xgunh22vwpam3txqp3c53qtfw5z5oh3mntrbtg2rqia"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaae25sfyxwq6tff7ycfyt755fjr56s5vu6nnltg46xkczf2u5ewm4a"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-16T12:11:49+00:00",
+      "time-finished": "2025-10-16T12:32:56+00:00",
+      "time-started": "2025-10-16T12:12:02+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaajndobbthkds7kwx2aiskyrgrgx3oqq65luqcbpjenwlhestba6da",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaaqfxbzajo6xgunh22vwpam3txqp3c53qtfw5z5oh3mntrbtg2rqia"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaae25sfyxwq6tff7ycfyt755fjr56s5vu6nnltg46xkczf2u5ewm4a"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T12:33:57+00:00",
+      "time-finished": "2025-10-16T12:35:53+00:00",
+      "time-started": "2025-10-16T12:34:09+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.amaaaaaauye2lgqa64qo3m7ecn3qqip5kftocb2ju6gn3fidhtwp4o4bceqa",
+      "operation-type": "CLUSTER_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaae25sfyxwq6tff7ycfyt755fjr56s5vu6nnltg46xkczf2u5ewm4a"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T13:45:40+00:00",
+      "time-finished": "2025-10-16T13:48:33+00:00",
+      "time-started": "2025-10-16T13:45:54+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaru3deaudf76m3la6l2bfd3qfn5r4quoglzhazee37wson32sw2ma",
+      "operation-type": "CLUSTER_CREATE",
+      "resources": [
+        {
+          "action-type": "CREATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T13:50:18+00:00",
+      "time-finished": "2025-10-16T13:56:23+00:00",
+      "time-started": "2025-10-16T13:50:24+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaag4uu7uinupip6hxezhhkgsxll6hpcng4somjlgfqxwxxw75yd54q",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaamtnwgqmgmnogzmewwpumqlohyc462vfjmjmyy5fmvnd7lga7opdq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-16T13:56:31+00:00",
+      "time-finished": "2025-10-16T14:17:27+00:00",
+      "time-started": "2025-10-16T13:56:37+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaawfszpg6mc2ymeugkoa6kshvqlbqq36q2osq6byr2wz3gsnysbra",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaamtnwgqmgmnogzmewwpumqlohyc462vfjmjmyy5fmvnd7lga7opdq"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T14:18:22+00:00",
+      "time-finished": "2025-10-16T14:20:11+00:00",
+      "time-started": "2025-10-16T14:18:28+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaap5sul7i2yqy3y6xbg4dudsi6eg7wthhpn7233zzejw43gkw3cy2q",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaaa5f4qsleqpp535yatog6xzqudncbwbkjv3ovv3onrnekjjtat22a"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-16T14:36:07+00:00",
+      "time-finished": "2025-10-16T14:57:03+00:00",
+      "time-started": "2025-10-16T14:36:17+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaayiwbdthhunapgluwfot7lvmhmij7olkvrkz7qj6dxw35fl5k5hvq",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaaa5f4qsleqpp535yatog6xzqudncbwbkjv3ovv3onrnekjjtat22a"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T14:57:57+00:00",
+      "time-finished": "2025-10-16T14:59:44+00:00",
+      "time-started": "2025-10-16T14:58:02+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaakvco3cd3k2rnuctjpcmt3lm7xtbxenqjjerodeiaqwejpyda53ta",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaa72xyf2gmj5inapfpr77j7ip7b334lgm35vi3jfevkngxf65zbk4q"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-16T15:39:05+00:00",
+      "time-finished": "2025-10-16T16:00:26+00:00",
+      "time-started": "2025-10-16T15:39:09+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaahbv4b7riumf3wgt27nu7mje5iuwihmsfblktsmofswlxsrdmuxoq",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaa72xyf2gmj5inapfpr77j7ip7b334lgm35vi3jfevkngxf65zbk4q"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T16:04:54+00:00",
+      "time-finished": "2025-10-16T16:06:06+00:00",
+      "time-started": "2025-10-16T16:05:07+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaanlo73coddy24ktsqts3kwm37eggc2hxo4ohbf5pn3wasw4phjx2a",
+      "operation-type": "NODEPOOL_CREATE",
+      "resources": [
+        {
+          "action-type": "FAILED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaazw4bcmaezjxpt2sc6y2v4iaooaayq6sg5pcwjtxlsnjxy72hzw7q"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "FAILED",
+      "time-accepted": "2025-10-16T18:07:03+00:00",
+      "time-finished": "2025-10-16T18:28:47+00:00",
+      "time-started": "2025-10-16T18:07:18+00:00"
+    },
+    {
+      "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+      "id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaiezd4ihjhrcgklq5rtx3slyjjwryv7wxb2uxhpj4qwgwkvmjkgva",
+      "operation-type": "NODEPOOL_DELETE",
+      "resources": [
+        {
+          "action-type": "DELETED",
+          "entity-type": "nodepool",
+          "entity-uri": null,
+          "identifier": "ocid1.nodepool.oc1.sa-saopaulo-1.aaaaaaaazw4bcmaezjxpt2sc6y2v4iaooaayq6sg5pcwjtxlsnjxy72hzw7q"
+        },
+        {
+          "action-type": "RELATED",
+          "entity-type": "cluster",
+          "entity-uri": null,
+          "identifier": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+        }
+      ],
+      "status": "SUCCEEDED",
+      "time-accepted": "2025-10-16T18:28:56+00:00",
+      "time-finished": "2025-10-16T18:30:32+00:00",
+      "time-started": "2025-10-16T18:29:02+00:00"
+    }
+  ]
+}

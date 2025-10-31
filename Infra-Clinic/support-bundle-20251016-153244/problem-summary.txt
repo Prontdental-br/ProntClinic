@@ -1,0 +1,29 @@
+PROBLEMA: Node Registration Timeout no OKE
+==========================================
+
+Descrição:
+- Cluster OKE criado com sucesso
+- Node pool falha ao registrar nós após timeout
+- Erro: "1 nodes(s) register timeout"
+
+Configuração:
+- Região: sa-saopaulo-1
+- Cluster: kt-cluster-prontclinic-prod
+- Node Pool: kt-cluster-prontclinic-prod-np
+- Shape: VM.Standard.A2.Flex
+- Imagem: Oracle Linux 8.10
+
+Tentativas realizadas:
+1. ✅ Provider OCI atualizado para 6.37.0
+2. ✅ Security lists configurados conforme documentação
+3. ✅ Imagem Oracle Linux 8.10 mais recente
+4. ✅ Configuração de rede otimizada
+5. ✅ Node Doctor script executado
+
+Próximos passos recomendados:
+1. Abrir Service Request com Oracle Support
+2. Anexar este support bundle
+3. Solicitar investigação específica da região sa-saopaulo-1
+4. Considerar usar Quick Create workflow
+
+Data: qui 16 out 2025 15:33:08 -03

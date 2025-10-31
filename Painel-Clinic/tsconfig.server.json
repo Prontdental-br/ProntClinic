@@ -1,0 +1,24 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "bundler",
+      "outDir": "dist",
+      "target": "es2017",
+      "isolatedModules": false,
+      "noEmit": false
+    },
+    "include": [
+      "./src/",
+      "tsconfig.server.json",
+      "next.config.mjs",
+      "tailwind.config.ts",
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx",
+      ".next/types/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }

@@ -1,0 +1,17 @@
+[
+  { "codigo": "1", "nome": "Paracetamol" },
+  { "codigo": "2", "nome": "Ibuprofeno" },
+  { "codigo": "3", "nome": "Amoxicilina" },
+  { "codigo": "4", "nome": "Omeprazol" },
+  { "codigo": "5", "nome": "Atorvastatina" },
+  { "codigo": "6", "nome": "Metformina" },
+  { "codigo": "7", "nome": "Losartana" },
+  { "codigo": "8", "nome": "Dipirona" },
+  { "codigo": "9", "nome": "Rivotril" },
+  { "codigo": "10", "nome": "Sinvastatina" },
+  { "codigo": "11", "nome": "Sertralina" },
+  { "codigo": "12", "nome": "Cloridrato de Ciprofloxacino" },
+  { "codigo": "13", "nome": "Fluoxetina" },
+  { "codigo": "14", "nome": "Escitalopram" },
+  { "codigo": "15", "nome": "Dexametasona" }
+]

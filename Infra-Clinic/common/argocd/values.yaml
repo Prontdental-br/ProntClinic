@@ -1,0 +1,128 @@
+# =============================================================================
+# ARGOCD HELM VALUES - ProntClinic
+# URL Externo: argocd-d.prontclinic.com.br
+# =============================================================================
+
+# Namespace
+namespace: argocd
+
+# Configurações do Server
+server:
+  # Ingress para acesso externo
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - argocd-d.prontclinic.com.br
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    tls:
+      - secretName: argocd-server-tls
+        hosts:
+          - argocd-d.prontclinic.com.br
+  
+  # Configurações adicionais
+  extraArgs:
+    - --insecure
+  service:
+    type: ClusterIP
+  
+  # Configuração de recursos
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+# Configurações do Controller
+controller:
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+# Configurações do Repo Server
+repoServer:
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+# Configurações do Dex (OAuth)
+dex:
+  enabled: true
+
+# Redis
+redis:
+  enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# Notifications
+notifications:
+  enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# ApplicationSet Controller
+applicationSet:
+  enabled: true
+  replicas: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# Configurações de segurança
+configs:
+  params:
+    server.insecure: true
+  cm:
+    # Timeout para sincronização
+    timeout.reconciliation: 180s
+    
+# RBAC
+configs.rbac:
+  policy.default: role:readonly
+  policy.csv: |
+    p, role:org-admin, applications, *, */*, allow
+    p, role:org-admin, repositories, *, */*, allow
+    p, role:org-admin, clusters, get, *, allow
+    p, role:org-admin, clusters, create, *, allow
+    g, argocd-admins, role:org-admin
+
+# Configurações de persistência
+persistence:
+  enabled: true
+
+# Métricas
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+

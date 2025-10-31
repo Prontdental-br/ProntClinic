@@ -1,0 +1,28 @@
+{
+  "data": {
+    "block-traffic": false,
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/k8s-provisioner-user@prontdental.com.br",
+        "CreatedOn": "2025-10-16T13:50:09.989Z"
+      }
+    },
+    "display-name": "kt-cluster-prontclinic-prod-nat",
+    "freeform-tags": {
+      "CostCenter": "IT",
+      "Environment": "Production",
+      "ManagedBy": "Terraform",
+      "Owner": "ProntClinic",
+      "Project": "ProntClinic"
+    },
+    "id": "ocid1.natgateway.oc1.sa-saopaulo-1.aaaaaaaadpv45l4ijw7pmvthabzp5f4ibwdshi5rbmfene5xnrgxz4pmkecq",
+    "lifecycle-state": "AVAILABLE",
+    "nat-ip": "136.248.67.230",
+    "public-ip-id": "ocid1.publicip.oc1.sa-saopaulo-1.aaaaaaaax5x4pat4frvsclhamon2h4ax7dao5diu5co67u4lcvqtr22you2q",
+    "route-table-id": null,
+    "time-created": "2025-10-16T13:50:10.126000+00:00",
+    "vcn-id": "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq"
+  },
+  "etag": "318822048--gzip"
+}

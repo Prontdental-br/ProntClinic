@@ -1,0 +1,310 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prontclinic-api
+  namespace: ptcc-development
+  labels:
+    app: prontclinic-api
+    project: "ProntClinic"
+    environment: "development"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prontclinic-api
+  template:
+    metadata:
+      labels:
+        app: prontclinic-api
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: prontclinic-api-redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+          name: redis
+        command:
+        - redis-server
+        - --requirepass
+        - redis123
+        - --appendonly
+        - "yes"
+        - --save
+        - "900 1"
+        - --save
+        - "300 10"
+        - --save
+        - "60 10000"
+        env:
+        - name: REDIS_PASSWORD
+          value: "redis123"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - -a
+            - redis123
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - -a
+            - redis123
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+      - name: prontclinic-api
+        image: prontdentalsoftware/prontclinic-api:ptcc-development-20251030221633
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: http
+        env:
+        # Server Configuration
+        - name: TZ
+          value: "America/Sao_Paulo"
+        - name: LC_ALL
+          value: "pt_BR.UTF-8"
+        - name: LANG
+          value: "pt_BR.UTF-8"
+        - name: PORT
+          value: "5000"
+        
+        # Database Configuration
+        - name: DB_PRONT_CONNECTION
+          value: "postgres"
+        - name: DB_PRONT_HOST
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: DB_PRONT_HOST
+        - name: DB_PRONT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: DB_PRONT_USERNAME
+        - name: DB_PRONT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: DB_PRONT_PASSWORD
+        - name: DB_PRONT_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: DB_PRONT_DATABASE
+        - name: DB_DATABASE
+          value: "prontclinic_dev_db"
+        - name: DB_PRONT_PORT
+          value: "5432"
+        - name: DB_PRONT_SCHEMA
+          value: "public"
+        
+        # Database URL (used by some applications)
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: DATABASE_URL
+        
+        # Email Configuration
+        - name: MAIL_API_KEYi
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: MAIL_API_KEYi
+        - name: MAIL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: MAIL_HOST
+        - name: MAIL_PORT
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: MAIL_PORT
+        - name: MAIL_USER
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: MAIL_USER
+        - name: MAIL_PSW
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: MAIL_PSW
+        
+        # JWT Configuration
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: JWT_SECRET
+        - name: JWT_SECRET_EXPIRES_IN
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: JWT_SECRET_EXPIRES_IN
+        - name: JWT_REFRESH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: JWT_REFRESH_SECRET
+        - name: JWT_REFRESH_SECRET_EXPIRES_IN
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: JWT_REFRESH_SECRET_EXPIRES_IN
+        - name: OWN_URL
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: OWN_URL
+        - name: URL_FRONT
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: URL_FRONT
+        
+        # S3 Bucket MINIO Configuration
+        - name: BUCKET_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: BUCKET_ENDPOINT
+        - name: BUCKET_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: BUCKET_ACCESS_KEY_ID
+        - name: BUCKET_NAME
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: BUCKET_NAME
+        - name: BUCKET_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: BUCKET_SECRET_KEY
+        
+        # Digital Certificate Configuration
+        - name: AES_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: AES_SECRET_KEY
+        - name: AES_IV
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: AES_IV
+        
+        # Schemas by Client Configuration
+        - name: NAME_SCHEMA_CLIENT
+          valueFrom:
+            configMapKeyRef:
+              name: prontclinic-api-configmap
+              key: name-schema-client
+        - name: NAME_FUNCTION_SCHEMA
+          value: "public.duplicate_schema"
+        - name: NAME_SCHEMA_REF
+          valueFrom:
+            configMapKeyRef:
+              name: prontclinic-api-configmap
+              key: name-schema-ref
+        - name: NAME_SCHEMA_GENERAL
+          valueFrom:
+            configMapKeyRef:
+              name: prontclinic-api-configmap
+              key: name-schema-general
+        
+        # Evolution API Configuration
+        - name: EVOLUTION_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: EVOLUTION_API_URL
+        - name: EVOLUTION_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: EVOLUTION_API_TOKEN
+        - name: APP_URL
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: APP_URL
+        - name: EVOLUTION_API_URL_CHAT
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: EVOLUTION_API_URL_CHAT
+        - name: EVOLUTION_API_TOKEN_CHAT
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: EVOLUTION_API_TOKEN_CHAT
+        - name: APP_URL_CHAT
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: APP_URL_CHAT
+        
+        # Asaas Configuration
+        - name: ASAAS_SANDBOX_URL
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: ASAAS_SANDBOX_URL
+        - name: ASAAS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: prontclinic-api-secret
+              key: ASAAS_API_KEY
+        
+        # Redis Configuration (Local Redis in same pod)
+        - name: CACHE_REDIS_URI
+          value: "redis://:redis123@localhost:6379/0"
+        - name: REDIS_HOST
+          value: "localhost"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_PASSWORD
+          value: "redis123"
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: prontclinic-api-redis-pvc
+        
+        

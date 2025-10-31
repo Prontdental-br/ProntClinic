@@ -1,0 +1,62 @@
+html,
+body {
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+}
+code:not([class*='language-']):before,
+code:not([class*='language-']):after {
+  content: '`';
+}
+code[class*='language-'] {
+  padding: 0;
+}
+@media print {
+  .hide-print {
+    display: none !important;
+  }
+
+  .image-print {
+    width: 100px!important;
+    height: 50px!important;
+  }
+}
+
+
+#shipment-statistics .apexcharts-legend .apexcharts-legend-series {
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 0.5rem;
+  block-size: 83%;
+  padding-block: 4px;
+  padding-inline: 16px;
+}
+
+.fc-youtubeButton-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  color: #065f46 !important; /* mesma cor que os outros botões usam no texto */
+  background: transparent !important;
+  border: none !important;
+}
+
+.fc-youtubeButton-button::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 16px;
+  background: url('/youtube-logo.png') no-repeat center center; /* 👈 sua imagem */
+  background-size: contain;
+}

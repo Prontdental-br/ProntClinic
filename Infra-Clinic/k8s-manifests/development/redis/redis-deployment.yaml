@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-dev
+  namespace: ptcc-development
+  labels:
+    app: redis-dev
+    project: "ProntClinic"
+    environment: "development"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-dev
+  template:
+    metadata:
+      labels:
+        app: redis-dev
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+          name: redis
+        env:
+        - name: REDIS_PASSWORD
+          value: "redis123"
+        command:
+        - redis-server
+        - --requirepass
+        - redis123
+        - --appendonly
+        - "yes"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+        livenessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: redis-data
+        emptyDir: {}
+      restartPolicy: Always

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-external
+  namespace: ptcc-development
+  labels:
+    app: postgresql
+    project: "ProntDental"
+    environment: "development"
+    access: "external"
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
+    service.beta.kubernetes.io/oci-load-balancer-is-private: "false"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: 5432
+    protocol: TCP
+  selector:
+    cnpg.io/cluster: postgresql-dev
+    cnpg.io/instanceRole: primary
+  sessionAffinity: None
+  externalTrafficPolicy: Local

@@ -1,0 +1,66 @@
+name: Build and Update Manifest
+
+on:
+  push:
+    branches:
+      - ptcc-development
+      - main
+    paths:
+      - 'Back-Clinic/**'
+  workflow_dispatch:
+
+env:
+  DOCKER_REGISTRY: prontdentalsoftware
+  IMAGE_NAME: prontclinic-api
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Generate image tag
+        id: image_tag
+        run: |
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          BRANCH_NAME=${BRANCH_NAME//\//-}
+          TAG="${BRANCH_NAME}-${TIMESTAMP}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "📦 Tag gerada: ${TAG}"
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Back-Clinic
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image_tag.outputs.tag }}
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      
+      - name: Trigger manifest update
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Prontdental-br/ProntClinic
+          event-type: update-manifest-api
+          client-payload: |
+            {
+              "image_tag": "${{ steps.image_tag.outputs.tag }}",
+              "docker_image": "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}"
+            }
+

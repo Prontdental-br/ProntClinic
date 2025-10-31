@@ -1,0 +1,94 @@
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Table,
+} from 'sequelize-typescript';
+import { ModelBase } from 'src/base/entities/ModelBase';
+import { Patient } from 'src/patients/entities/patient.entity';
+import { Professional } from 'src/professionals/entities/professional.entity';
+import { DateTime } from 'luxon';
+
+@Table({
+  tableName: 'evolutions',
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+})
+export class Evolution extends ModelBase {
+  @ForeignKey(() => Patient)
+  @Column({
+    field: 'patient_id',
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    allowNull: false,
+  })
+  patientId: string;
+
+  @BelongsTo(() => Patient)
+  patient: Patient;
+
+  @ForeignKey(() => Professional)
+  @Column({
+    field: 'professional_id',
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    allowNull: false,
+  })
+  professionalId: string;
+
+  @BelongsTo(() => Professional)
+  professional: Professional;
+
+  @Column({ field: 'date_evolution', type: DataType.DATE, allowNull: false })
+  dateEvolution: DateTime;
+
+  @Column({
+    field: 'description',
+    type: DataType.TEXT,
+  })
+  description: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  date: Date;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  time: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  hash: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  email: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  name: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: true,
+    defaultValue: false,
+  })
+  isSigned: boolean;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  fontFamily: string;
+}

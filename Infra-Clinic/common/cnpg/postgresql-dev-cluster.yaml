@@ -1,0 +1,41 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql-dev
+  namespace: ptcc-development
+  labels:
+    app: postgresql
+    project: "ProntDental"
+    environment: "development"
+spec:
+  instances: 3
+  
+  postgresql:
+    parameters:
+      max_connections: "200"
+      log_statement: "all"
+      log_min_duration_statement: "1000"
+  
+  bootstrap:
+    initdb:
+      database: prontclinic
+      owner: prontclinic
+      secret:
+        name: postgresql-credentials
+  
+  storage:
+    size: 20Gi
+    storageClass: oci-bv
+    
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
+  
+  monitoring:
+    customQueriesConfigMap:
+    - name: postgresql-exporter-queries
+      key: queries.yaml

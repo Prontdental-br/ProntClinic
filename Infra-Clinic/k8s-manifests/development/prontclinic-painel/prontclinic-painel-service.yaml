@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prontclinic-painel-service
+  namespace: ptcc-development
+  labels:
+    app: prontclinic-painel
+    project: "ProntClinic"
+    environment: "development"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3030
+    protocol: TCP
+    name: http
+  selector:
+    app: prontclinic-painel

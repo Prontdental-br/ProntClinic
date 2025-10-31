@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prontclinic-painel-config
+  namespace: ptcc-development
+  labels:
+    app: prontclinic-painel
+    project: "ProntClinic"
+    environment: "development"
+data:
+  # Application Configuration
+  NODE_ENV: "development"
+  PORT: "3030"
+  NEXT_PUBLIC_OWN_URL: "https://painel-d.prontclinic.com.br"
+  
+  # Database Configuration
+  DB_PRONT_CONNECTION: "postgres"
+  DB_HOST: "postgresql-dev-rw.ptcc-development.svc.cluster.local"
+  DB_PRONT_USERNAME: "prontclinic"
+  DB_PRONT_DATABASE: "prontclinic"
+  DB_PORT: "5432"
+  DB_PRONT_SCHEMA: "public"
+  DB_PRONT_SSL: "true"
+  
+  # Evolution API Configuration
+  EVOLUTION_API_URL: "https://api-d.prontclinic.com.br"
+  EVOLUTION_WEBHOOK_URL: "https://api-d.prontclinic.com.br/whatsapp/evolution-webhook"
+  
+  # ASAAS API Configuration
+  ASAAS_API_URL: "https://www.asaas.com/api/v3"
+  WEBHOOK_URL: "https://painel-d.prontclinic.com.br/api/subaccount_webhook"
+  
+  # Schemas by Client
+  NAME_SCHEMA_CLIENT: ""
+  NAME_FUNCTION_SCHEMA: ""
+  NAME_SCHEMA_REF: ""
+  NAME_SCHEMA_GENERAL: ""

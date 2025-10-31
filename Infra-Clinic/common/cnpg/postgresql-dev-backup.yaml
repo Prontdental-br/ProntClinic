@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: postgresql-dev-scheduled-backup
+  namespace: ptcc-development
+  labels:
+    app: postgresql
+    project: "ProntDental"
+    environment: "development"
+spec:
+  schedule: "0 2 * * *"  # Diariamente às 2h
+  cluster:
+    name: postgresql-dev
+  
+  backupOwnerReference: self
+  method: barmanObjectStore

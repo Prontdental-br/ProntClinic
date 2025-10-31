@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prontclinic-painel
+  namespace: ptcc-development
+  labels:
+    app: prontclinic-painel
+    project: "ProntClinic"
+    environment: "development"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prontclinic-painel
+  template:
+    metadata:
+      labels:
+        app: prontclinic-painel
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: prontclinic-painel
+        image: prontdentalsoftware/prontclinic-painel:ptcc-development-20251030192408
+        ports:
+        - containerPort: 3030
+          name: http
+        envFrom:
+        - configMapRef:
+            name: prontclinic-painel-config
+        - secretRef:
+            name: prontclinic-painel-secret
+        
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+        
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3030
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3030
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        # Volume mounts for persistent data if needed
+        volumeMounts:
+        - name: painel-logs
+          mountPath: /app/logs
+      
+      volumes:
+      - name: painel-logs
+        emptyDir: {}

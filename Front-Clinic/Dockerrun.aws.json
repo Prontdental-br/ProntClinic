@@ -1,0 +1,12 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "450588345909.dkr.ecr.us-east-1.amazonaws.com/prontdental:latest",
+        "Update": "true"
+    },
+    "Ports": [
+        {
+            "ContainerPort": 80
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-dev
+  namespace: ptcc-development
+  labels:
+    app: minio-dev
+    project: "ProntClinic"
+    environment: "development"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio-dev
+  template:
+    metadata:
+      labels:
+        app: minio-dev
+    spec:
+      containers:
+      - name: minio
+        image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+        args:
+        - server
+        - /data
+        - --console-address
+        - ":9001"
+        env:
+        - name: MINIO_ROOT_USER
+          value: "minioadmin"
+        - name: MINIO_ROOT_PASSWORD
+          value: "9n%%304UCdP4eR0Tm6mo09biw@tQ*&h3^qHsQ"
+        ports:
+        - containerPort: 9000
+          name: api
+        - containerPort: 9001
+          name: console
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: minio-data
+          mountPath: /data
+      volumes:
+      - name: minio-data
+        persistentVolumeClaim:
+          claimName: minio-dev-pvc
+      restartPolicy: Always

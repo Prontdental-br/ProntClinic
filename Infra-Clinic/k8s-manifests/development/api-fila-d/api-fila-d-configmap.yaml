@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-fila-d-config
+  namespace: ptcc-development
+  labels:
+    app: api-fila-d
+    project: "ProntClinic"
+    environment: "development"
+data:
+  # Server Configuration
+  SERVER_URL: "https://api-fila-d.prontclinic.com.br"
+  AUTHENTICATION_API_KEY: "SviuLdm9HpC7utJjTgIjLDEdVrJHgrt95Z7vH8Vd8y6pzGEmmXP4FaqR63j3Fq87"
+  AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES: "true"
+  LANGUAGE: "en"
+  DEL_INSTANCE: "false"
+  
+  # Database Configuration
+  DATABASE_PROVIDER: "postgresql"
+  DATABASE_CONNECTION_URI: "postgresql://prontclinic:prontclinic123@postgresql-dev-rw.ptcc-development.svc.cluster.local:5432/api_fila_db"
+  DATABASE_SAVE_DATA_INSTANCE: "true"
+  DATABASE_SAVE_DATA_NEW_MESSAGE: "true"
+  DATABASE_SAVE_MESSAGE_UPDATE: "true"
+  DATABASE_SAVE_DATA_CONTACTS: "true"
+  DATABASE_SAVE_DATA_CHATS: "true"
+  DATABASE_SAVE_DATA_LABELS: "true"
+  DATABASE_SAVE_DATA_HISTORIC: "true"
+  DATABASE_CONNECTION_CLIENT_NAME: "api_fila"
+  
+  # Session Configuration
+  CONFIG_SESSION_PHONE_CLIENT: "APP-CLINIC-DEV"
+  CONFIG_SESSION_PHONE_NAME: "Chrome"
+  CONFIG_SESSION_PHONE_VERSION: "2.3000.1026080446"
+  QRCODE_LIMIT: "30"
+  
+  # AI Configuration
+  OPENAI_ENABLED: "true"
+  DIFY_ENABLED: "true"
+  TYPEBOT_ENABLED: "true"
+  TYPEBOT_API_VERSION: "latest"
+  
+  # Redis Configuration
+  CACHE_REDIS_ENABLED: "true"
+  CACHE_REDIS_URI: "redis://:redis123@api-fila-d-redis-service.ptcc-development.svc.cluster.local:6379/1"
+  CACHE_REDIS_PREFIX_KEY: "evolution-fila"
+  CACHE_REDIS_SAVE_INSTANCES: "true"
+  CACHE_LOCAL_ENABLED: "false"

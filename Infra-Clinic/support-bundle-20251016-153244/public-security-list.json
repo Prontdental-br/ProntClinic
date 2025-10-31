@@ -1,0 +1,112 @@
+{
+  "data": {
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/k8s-provisioner-user@prontdental.com.br",
+        "CreatedOn": "2025-10-16T13:50:10.115Z"
+      }
+    },
+    "display-name": "kt-cluster-prontclinic-prod-public-sl",
+    "egress-security-rules": [
+      {
+        "description": null,
+        "destination": "0.0.0.0/0",
+        "destination-type": "CIDR_BLOCK",
+        "icmp-options": null,
+        "is-stateless": false,
+        "protocol": "all",
+        "tcp-options": null,
+        "udp-options": null
+      }
+    ],
+    "freeform-tags": {
+      "CostCenter": "IT",
+      "Environment": "Production",
+      "ManagedBy": "Terraform",
+      "Owner": "ProntClinic",
+      "Project": "ProntClinic"
+    },
+    "id": "ocid1.securitylist.oc1.sa-saopaulo-1.aaaaaaaaw3nddxv5g3eqwmiiahlfccqi3pwv6o5g36gro24bc7fun7girefq",
+    "ingress-security-rules": [
+      {
+        "description": null,
+        "icmp-options": null,
+        "is-stateless": false,
+        "protocol": "6",
+        "source": "0.0.0.0/0",
+        "source-type": "CIDR_BLOCK",
+        "tcp-options": {
+          "destination-port-range": {
+            "max": 32767,
+            "min": 30000
+          },
+          "source-port-range": null
+        },
+        "udp-options": null
+      },
+      {
+        "description": null,
+        "icmp-options": null,
+        "is-stateless": false,
+        "protocol": "all",
+        "source": "172.16.0.0/16",
+        "source-type": "CIDR_BLOCK",
+        "tcp-options": null,
+        "udp-options": null
+      },
+      {
+        "description": null,
+        "icmp-options": null,
+        "is-stateless": false,
+        "protocol": "6",
+        "source": "0.0.0.0/0",
+        "source-type": "CIDR_BLOCK",
+        "tcp-options": {
+          "destination-port-range": {
+            "max": 6443,
+            "min": 6443
+          },
+          "source-port-range": null
+        },
+        "udp-options": null
+      },
+      {
+        "description": null,
+        "icmp-options": null,
+        "is-stateless": false,
+        "protocol": "6",
+        "source": "0.0.0.0/0",
+        "source-type": "CIDR_BLOCK",
+        "tcp-options": {
+          "destination-port-range": {
+            "max": 443,
+            "min": 443
+          },
+          "source-port-range": null
+        },
+        "udp-options": null
+      },
+      {
+        "description": null,
+        "icmp-options": null,
+        "is-stateless": false,
+        "protocol": "6",
+        "source": "0.0.0.0/0",
+        "source-type": "CIDR_BLOCK",
+        "tcp-options": {
+          "destination-port-range": {
+            "max": 80,
+            "min": 80
+          },
+          "source-port-range": null
+        },
+        "udp-options": null
+      }
+    ],
+    "lifecycle-state": "AVAILABLE",
+    "time-created": "2025-10-16T13:50:10.135000+00:00",
+    "vcn-id": "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq"
+  },
+  "etag": "8db6176e"
+}

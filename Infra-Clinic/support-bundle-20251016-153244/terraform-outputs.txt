@@ -1,0 +1,63 @@
+cluster_endpoints = tolist([
+  {
+    "ipv6endpoint" = ""
+    "kubernetes" = ""
+    "private_endpoint" = "172.16.2.17:6443"
+    "public_endpoint" = "136.248.112.2:6443"
+    "vcn_hostname_endpoint" = "cdqjj36xbkq.okepublic.okevcn.oraclevcn.com:6443"
+  },
+])
+cluster_id = "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq"
+cluster_kubernetes_version = "v1.31.1"
+cluster_name = "kt-cluster-prontclinic-prod"
+connection_info = {
+  "cluster_endpoint" = ""
+  "kubectl_config" = "Use 'oci ce cluster create-kubeconfig' para configurar kubectl"
+  "oci_cli_command" = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq --file ~/.kube/config --region sa-saopaulo-1"
+}
+development_info = {
+  "cluster_name" = "kt-cluster-prontclinic-prod"
+  "cost_optimized" = "Configuração otimizada para custos de desenvolvimento"
+  "database_access" = "kubectl port-forward -n prontclinic-dev svc/prontclinic-dev-db-service 5432:5432"
+  "database_setup" = "kubectl apply -f k8s-manifests/development.yaml"
+  "environment" = "Development"
+  "pgadmin_access" = "kubectl port-forward -n prontclinic-dev svc/pgadmin-service 8080:80"
+}
+internet_gateway_id = "ocid1.internetgateway.oc1.sa-saopaulo-1.aaaaaaaawi3yorpb273gmt6do4d2dn76cgmvvaf7rxqzqcspsumqpbpbpeia"
+nat_gateway_id = "ocid1.natgateway.oc1.sa-saopaulo-1.aaaaaaaadpv45l4ijw7pmvthabzp5f4ibwdshi5rbmfene5xnrgxz4pmkecq"
+network_info = {
+  "pods_cidr" = "10.244.0.0/16"
+  "private_subnet_cidr" = "172.16.1.0/24"
+  "public_subnet_cidr" = "172.16.2.0/24"
+  "services_cidr" = "10.96.0.0/16"
+  "vcn_cidr" = "172.16.0.0/16"
+}
+next_steps = [
+  "1. Configure kubectl: oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq --file ~/.kube/config --region sa-saopaulo-1",
+  "2. Verifique os nós: kubectl get nodes",
+  "3. Instale o PostgreSQL: kubectl apply -f k8s-manifests/development.yaml",
+  "4. Aguarde o banco ficar pronto: kubectl get clusters -n prontclinic-dev",
+  "5. Acesse PgAdmin: kubectl port-forward -n prontclinic-dev svc/pgadmin-service 8080:80",
+]
+node_info = {
+  "availability_domain" = "Hldf:SA-SAOPAULO-1-AD-1"
+  "node_count" = 1
+  "node_memory" = "4GB"
+  "node_ocpus" = 2
+  "node_shape" = "VM.Standard.A2.Flex"
+}
+node_pool_name = "kt-cluster-prontclinic-prod-np"
+node_pool_size = 1
+private_subnet_cidr = "172.16.1.0/24"
+private_subnet_id = "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaaku5r2d4g4cejhca7djcp3ldblbacm73du2zrwuu2yum2vhkizmvq"
+public_subnet_cidr = "172.16.2.0/24"
+public_subnet_id = "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaaopmlwgh3i7gftsqgbhzc65ezuyavqyfhse5lnumurn62u7dngg5q"
+service_gateway_id = "ocid1.servicegateway.oc1.sa-saopaulo-1.aaaaaaaawdjgcmbba4mev27dob4obj6jzbzlx2civel56dnk6yvnwk2wzvka"
+useful_commands = {
+  "get_kubeconfig" = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq --file ~/.kube/config --region sa-saopaulo-1"
+  "get_nodes" = "kubectl get nodes"
+  "get_pods" = "kubectl get pods --all-namespaces"
+  "get_services" = "kubectl get services --all-namespaces"
+}
+vcn_cidr = "172.16.0.0/16"
+vcn_id = "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq"

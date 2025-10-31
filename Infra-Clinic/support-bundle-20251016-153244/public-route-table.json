@@ -1,0 +1,34 @@
+{
+  "data": {
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/k8s-provisioner-user@prontdental.com.br",
+        "CreatedOn": "2025-10-16T13:50:10.597Z"
+      }
+    },
+    "display-name": "kt-cluster-prontclinic-prod-public-rt",
+    "freeform-tags": {
+      "CostCenter": "IT",
+      "Environment": "Production",
+      "ManagedBy": "Terraform",
+      "Owner": "ProntClinic",
+      "Project": "ProntClinic"
+    },
+    "id": "ocid1.routetable.oc1.sa-saopaulo-1.aaaaaaaapb2uieksb6a4fxwpecdqq5ehkwawqjb7ki77ncmzejphbk6lwqvq",
+    "lifecycle-state": "AVAILABLE",
+    "route-rules": [
+      {
+        "cidr-block": null,
+        "description": null,
+        "destination": "0.0.0.0/0",
+        "destination-type": "CIDR_BLOCK",
+        "network-entity-id": "ocid1.internetgateway.oc1.sa-saopaulo-1.aaaaaaaawi3yorpb273gmt6do4d2dn76cgmvvaf7rxqzqcspsumqpbpbpeia",
+        "route-type": "STATIC"
+      }
+    ],
+    "time-created": "2025-10-16T13:50:10.629000+00:00",
+    "vcn-id": "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq"
+  },
+  "etag": "c71c614b"
+}

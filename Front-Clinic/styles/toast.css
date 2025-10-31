@@ -1,0 +1,16 @@
+.custom-toast {
+    background-color: #ff7f00 !important;
+    color: white !important;
+    font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue' !important;
+  }
+  
+  .custom-toast .toast-header {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .custom-toast .toast-body {
+    font-size: 14px;
+    opacity: 0.9;
+  }

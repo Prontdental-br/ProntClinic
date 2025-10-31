@@ -1,0 +1,32 @@
+{
+  "data": {
+    "block-traffic": false,
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/k8s-provisioner-user@prontdental.com.br",
+        "CreatedOn": "2025-10-16T13:50:10.118Z"
+      }
+    },
+    "display-name": "kt-cluster-prontclinic-prod-sgw",
+    "freeform-tags": {
+      "CostCenter": "IT",
+      "Environment": "Production",
+      "ManagedBy": "Terraform",
+      "Owner": "ProntClinic",
+      "Project": "ProntClinic"
+    },
+    "id": "ocid1.servicegateway.oc1.sa-saopaulo-1.aaaaaaaawdjgcmbba4mev27dob4obj6jzbzlx2civel56dnk6yvnwk2wzvka",
+    "lifecycle-state": "AVAILABLE",
+    "route-table-id": null,
+    "services": [
+      {
+        "service-id": "ocid1.service.oc1.sa-saopaulo-1.aaaaaaaacd57uig6rzxm2qfipukbqpje2bhztqszh3aj7zk2jtvf6gvntena",
+        "service-name": "All GRU Services In Oracle Services Network"
+      }
+    ],
+    "time-created": "2025-10-16T13:50:12.612000+00:00",
+    "vcn-id": "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq"
+  },
+  "etag": "7ba8b408"
+}

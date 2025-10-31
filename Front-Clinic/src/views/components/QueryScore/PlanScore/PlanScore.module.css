@@ -1,0 +1,48 @@
+.header_plan {
+    background-color: #5A5FE0;
+    padding: .35rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #FFF;
+    font-size: 1.1rem;
+}
+
+.content_plan {
+    padding: 1rem;
+}
+
+.content_plan p {
+    margin-bottom: 2.5rem;
+    font-size: 15px;
+}
+
+.content_plan button {
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: #5A5FE0;
+    text-transform: uppercase;
+}
+
+
+.wrapper_plan_score {
+    text-align: center;
+}
+
+.wrapper_plan_score_paragraph {
+    margin-top: 1.8rem;
+}
+
+
+.container_plans {
+    /* display: flex;
+    justify-content: space-around;
+    gap: .5rem;
+    flex-wrap: wrap; */
+    display: grid;
+    padding: .5rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.2rem;
+}

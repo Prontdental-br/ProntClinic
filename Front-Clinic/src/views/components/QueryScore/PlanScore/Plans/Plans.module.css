@@ -1,0 +1,38 @@
+.wrapper_plan_card {
+    background-color: #5A5FE0;
+    color: #FFF;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+}
+
+.wrapper_plan_card h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 30px;
+}
+
+
+.wrapper_plan_card p {
+    margin: 0;
+}
+
+.content_plan_values {
+    margin: .5rem 0;
+}
+
+.content_plan_values p {
+    font-size: 22px;
+}
+
+.wrapper_plan_card button {
+    width: 100%;
+    padding: .5rem;
+    margin-top: 1rem;
+    border: none;
+    background-color: #FFF;
+    color: #5A5FE0;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: .3rem;
+}

@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prontclinic-app
+  namespace: ptcc-development
+  labels:
+    app: prontclinic-app
+    project: "ProntClinic"
+    environment: "development"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prontclinic-app
+  template:
+    metadata:
+      labels:
+        app: prontclinic-app
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: prontclinic-app
+        image: prontdentalsoftware/prontclinic-app:ptcc-development-20251030195523
+        ports:
+        - containerPort: 3000
+          name: http
+        
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+        
+        # Health checks removidos temporariamente para debug
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 3000
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+        #   timeoutSeconds: 5
+        #   failureThreshold: 3
+        
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 3000
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 5
+        #   timeoutSeconds: 3
+        #   failureThreshold: 3
+        
+        # Volume mounts for persistent data if needed
+        volumeMounts:
+        - name: app-logs
+          mountPath: /app/logs
+      
+      volumes:
+      - name: app-logs
+        emptyDir: {}

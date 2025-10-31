@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespace: ptcc-development
+  labels:
+    app: pgadmin
+    project: "ProntDental"
+    environment: "development"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      containers:
+      - name: pgadmin
+        image: dpage/pgadmin4:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: "admin@prontdental.com"
+        - name: PGADMIN_DEFAULT_PASSWORD
+          value: "admin123"
+        - name: PGADMIN_CONFIG_AUTHENTICATION_SOURCES
+          value: "['internal']"
+        - name: PGADMIN_CONFIG_AUTHENTICATION_SOURCE
+          value: "\"internal\""
+        - name: PGADMIN_CONFIG_SERVER_MODE
+          value: "False"
+        - name: PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED
+          value: "True"
+        - name: PGADMIN_CONFIG_LOGIN_BANNER
+          value: "\"Bem-vindo ao pgAdmin - ProntDental\""
+        - name: PGADMIN_CONFIG_SESSION_COOKIE_SECURE
+          value: "False"
+        - name: PGADMIN_CONFIG_SESSION_COOKIE_HTTPONLY
+          value: "True"
+        - name: PGADMIN_CONFIG_SESSION_COOKIE_SAMESITE
+          value: "\"Lax\""
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: pgadmin-data
+          mountPath: /var/lib/pgadmin
+      volumes:
+      - name: pgadmin-data
+        emptyDir: {}
+      restartPolicy: Always

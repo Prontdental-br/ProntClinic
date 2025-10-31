@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prontclinic-api-configmap
+  namespace: ptcc-development
+  labels:
+    app: prontclinic-api
+    environment: development
+    project: ProntClinic
+data:
+  name-schema-client: "prontclinic_client_"
+  name-schema-ref: "prontclinic_cli_def"
+  name-schema-general: "general_prontclinic"

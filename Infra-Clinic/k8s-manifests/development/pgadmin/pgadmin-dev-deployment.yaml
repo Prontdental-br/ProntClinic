@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin-dev
+  namespace: ptcc-development
+  labels:
+    app: pgadmin-dev
+    project: "ProntDental"
+    environment: "development"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin-dev
+  template:
+    metadata:
+      labels:
+        app: pgadmin-dev
+    spec:
+      initContainers:
+      - name: fix-permissions
+        image: busybox:1.35
+        command: ['sh', '-c', 'chown -R 5050:5050 /var/lib/pgadmin && chmod -R 755 /var/lib/pgadmin']
+        volumeMounts:
+        - name: pgadmin-data
+          mountPath: /var/lib/pgadmin
+      containers:
+      - name: pgadmin
+        image: dpage/pgadmin4:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-auth-secret
+              key: PGADMIN_EMAIL
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-auth-secret
+              key: PGADMIN_PASSWORD
+        - name: PGADMIN_CONFIG_AUTHENTICATION_SOURCES
+          value: "['internal']"
+        - name: PGADMIN_CONFIG_AUTHENTICATION_SOURCE
+          value: "\"internal\""
+        - name: PGADMIN_CONFIG_SERVER_MODE
+          value: "False"
+        - name: PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED
+          value: "True"
+        - name: PGADMIN_CONFIG_LOGIN_BANNER
+          value: "\"Bem-vindo ao pgAdmin DEV - ProntClinic\""
+        - name: PGADMIN_CONFIG_SESSION_COOKIE_SECURE
+          value: "False"
+        - name: PGADMIN_CONFIG_SESSION_COOKIE_HTTPONLY
+          value: "True"
+        - name: PGADMIN_CONFIG_SESSION_COOKIE_SAMESITE
+          value: "\"Lax\""
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: pgadmin-data
+          mountPath: /var/lib/pgadmin
+      volumes:
+      - name: pgadmin-data
+        persistentVolumeClaim:
+          claimName: pgadmin-pvc
+      restartPolicy: Always

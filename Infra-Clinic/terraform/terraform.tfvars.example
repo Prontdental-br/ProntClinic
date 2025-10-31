@@ -1,0 +1,51 @@
+# =============================================================================
+# EXEMPLO DE CONFIGURAÇÃO PARA AMBIENTE DE DESENVOLVIMENTO
+# Copie este arquivo para terraform.tfvars e configure com seus dados
+# =============================================================================
+
+# Informações de autenticação OCI
+# Credenciais do usuário ProntClinic
+tenancy_ocid = "ocid1.tenancy.oc1..aaaaaaaavy552uq26dqwka7lj6ri5m6hs6s5aknim22uyukfvlwgblffbmja"
+user_ocid = "ocid1.user.oc1..aaaaaaaameqgjjitxorm6cdsnjwaqkrnzi5l3fjz5cn4mglmzj2c6n5jtu2a"
+fingerprint = "92:61:03:c2:e5:61:81:01:30:a7:09:e7:9a:60:41:2f"
+private_key_path = "./api_key/oci_api_key.pem"
+region = "sa-saopaulo-1"
+
+# Compartment OCID
+# Obtenha no OCI Console > Identity > Compartments
+compartment_id = "ocid1.compartment.oc1..aaaaaaaaa..."
+
+# Nome do cluster (será usado como prefixo para todos os recursos)
+cluster_name = "prontclinic-dev"
+
+# Configurações do cluster (otimizado para desenvolvimento)
+node_count = 2          # Número de nós (mínimo para HA)
+node_ocpus = 1          # vCPUs por nó (mínimo)
+node_memory_gb = 4      # GB de RAM por nó (mínimo)
+
+# Tags personalizadas (opcional)
+freeform_tags = {
+  "Environment" = "Development"
+  "Project"     = "ProntClinic"
+  "ManagedBy"   = "Terraform"
+  "Owner"       = "SeuNome"
+  "CostCenter"  = "IT"
+}
+
+# =============================================================================
+# CONFIGURAÇÕES AVANÇADAS (OPCIONAL)
+# Descomente e modifique se necessário
+# =============================================================================
+
+# Versão do Kubernetes (deixe comentado para usar a padrão)
+# kubernetes_version = "v1.33.1"
+
+# Configurações de rede (deixe comentado para usar os padrões)
+# vcn_cidr = "10.0.0.0/16"
+# private_subnet_cidr = "10.0.1.0/24"
+# public_subnet_cidr = "10.0.2.0/24"
+# pods_cidr = "10.244.0.0/16"
+# services_cidr = "10.96.0.0/16"
+
+# Kubernetes Dashboard (deixe comentado para habilitar)
+# enable_kubernetes_dashboard = true

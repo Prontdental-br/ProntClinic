@@ -1,0 +1,163 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: traefik-system
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-account
+  namespace: traefik-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traefik-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  - ingressclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses/status
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: traefik-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: traefik-role
+subjects:
+- kind: ServiceAccount
+  name: traefik-account
+  namespace: traefik-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-config
+  namespace: traefik-system
+data:
+  traefik.yaml: |
+    api:
+      dashboard: true
+      insecure: true
+    entryPoints:
+      web:
+        address: ":80"
+      websecure:
+        address: ":443"
+    providers:
+      kubernetes:
+        endpoint: ""
+        namespaces: []
+        labelselector: ""
+    certificatesResolvers:
+      default:
+        acme:
+          email: admin@prontclinic.com.br
+          storage: /data/acme.json
+          httpChallenge:
+            entryPoint: web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: traefik-system
+  labels:
+    app: traefik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      serviceAccountName: traefik-account
+      containers:
+      - name: traefik
+        image: traefik:v3.0
+        args:
+        - --configfile=/config/traefik.yaml
+        ports:
+        - name: web
+          containerPort: 80
+        - name: websecure
+          containerPort: 443
+        - name: dashboard
+          containerPort: 8080
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: data
+          mountPath: /data
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+      volumes:
+      - name: config
+        configMap:
+          name: traefik-config
+      - name: data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  namespace: traefik-system
+spec:
+  type: LoadBalancer
+  ports:
+  - name: web
+    port: 80
+    targetPort: 80
+  - name: websecure
+    port: 443
+    targetPort: 443
+  - name: dashboard
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: traefik
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: traefik
+spec:
+  controller: traefik.io/ingress-controller

@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin-dev-ingress
+  namespace: ptcc-development
+  labels:
+    app: pgadmin-dev
+    project: "ProntDental"
+    environment: "development"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: pgadmin-basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: "Acesso ao pgAdmin - ProntClinic"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - pgadmin-d.prontclinic.com.br
+    secretName: pgadmin-tls-certmanager
+  rules:
+  - host: pgadmin-d.prontclinic.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pgadmin-d-service
+            port:
+              number: 80

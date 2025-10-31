@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pgadmin-certificate
+  namespace: ptcc-development
+  labels:
+    app: pgadmin-dev
+    project: "ProntDental"
+    environment: "development"
+spec:
+  secretName: pgadmin-tls-certmanager
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - pgadmin-d.prontclinic.com.br
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days

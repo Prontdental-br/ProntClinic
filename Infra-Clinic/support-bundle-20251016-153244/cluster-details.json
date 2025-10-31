@@ -1,0 +1,96 @@
+{
+  "data": {
+    "available-kubernetes-upgrades": [
+      "v1.31.10",
+      "v1.32.1"
+    ],
+    "cluster-pod-network-options": [
+      {
+        "cni-type": "FLANNEL_OVERLAY"
+      }
+    ],
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/k8s-provisioner-user@prontdental.com.br",
+        "CreatedOn": "2025-10-16T13:50:18.420Z"
+      }
+    },
+    "endpoint-config": {
+      "is-public-ip-enabled": true,
+      "nsg-ids": [],
+      "subnet-id": "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaaopmlwgh3i7gftsqgbhzc65ezuyavqyfhse5lnumurn62u7dngg5q"
+    },
+    "endpoints": {
+      "ipv6-endpoint": null,
+      "kubernetes": null,
+      "private-endpoint": "172.16.2.17:6443",
+      "public-endpoint": "136.248.112.2:6443",
+      "vcn-hostname-endpoint": "cdqjj36xbkq.okepublic.okevcn.oraclevcn.com:6443"
+    },
+    "freeform-tags": {
+      "CostCenter": "IT",
+      "Environment": "Production",
+      "ManagedBy": "Terraform",
+      "Owner": "ProntClinic",
+      "Project": "ProntClinic"
+    },
+    "id": "ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaapvrufkav4xpt6zqnk5elqbvuw3tz3zravmqf5w4qwcdqjj36xbkq",
+    "image-policy-config": {
+      "is-policy-enabled": false,
+      "key-details": []
+    },
+    "kms-key-id": null,
+    "kubernetes-version": "v1.31.1",
+    "lifecycle-details": null,
+    "lifecycle-state": "ACTIVE",
+    "metadata": {
+      "created-by-user-id": "ocid1.user.oc1..aaaaaaaaeextqz47sbfpbdwndbsfaur5edjgruoxaxrkvgk5qeuhvkbuta7q",
+      "created-by-work-request-id": "ocid1.clustersworkrequest.oc1.sa-saopaulo-1.aaaaaaaaru3deaudf76m3la6l2bfd3qfn5r4quoglzhazee37wson32sw2ma",
+      "deleted-by-user-id": null,
+      "deleted-by-work-request-id": null,
+      "time-created": "2025-10-16T13:50:18+00:00",
+      "time-credential-expiration": "2030-10-16T13:50:50+00:00",
+      "time-deleted": null,
+      "time-updated": null,
+      "updated-by-user-id": null,
+      "updated-by-work-request-id": null
+    },
+    "name": "kt-cluster-prontclinic-prod",
+    "open-id-connect-discovery-endpoint": null,
+    "open-id-connect-discovery-key": null,
+    "options": {
+      "add-ons": {
+        "is-kubernetes-dashboard-enabled": true,
+        "is-tiller-enabled": false
+      },
+      "admission-controller-options": {
+        "is-pod-security-policy-enabled": false
+      },
+      "ip-families": [
+        "IPv4"
+      ],
+      "kubernetes-network-config": {
+        "pods-cidr": "10.244.0.0/16",
+        "services-cidr": "10.96.0.0/16"
+      },
+      "open-id-connect-discovery": null,
+      "open-id-connect-token-authentication-config": null,
+      "persistent-volume-config": {
+        "defined-tags": null,
+        "freeform-tags": null
+      },
+      "service-lb-config": {
+        "defined-tags": null,
+        "freeform-tags": null
+      },
+      "service-lb-subnet-ids": [
+        "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaaopmlwgh3i7gftsqgbhzc65ezuyavqyfhse5lnumurn62u7dngg5q"
+      ]
+    },
+    "system-tags": null,
+    "type": "BASIC_CLUSTER",
+    "vcn-id": "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq"
+  },
+  "etag": "38887c910f8dc8e48de72bd0c6fbee1315201782e03c6461aa475bdd102b53ab--gzip"
+}

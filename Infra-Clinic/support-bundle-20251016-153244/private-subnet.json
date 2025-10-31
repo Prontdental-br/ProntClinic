@@ -1,0 +1,40 @@
+{
+  "data": {
+    "availability-domain": null,
+    "cidr-block": "172.16.1.0/24",
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaaakb25lyqo7uju62mzvhxreoxwzdjyuemswxhgqz5iivb353z2dcq",
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/k8s-provisioner-user@prontdental.com.br",
+        "CreatedOn": "2025-10-16T13:50:11.086Z"
+      }
+    },
+    "dhcp-options-id": "ocid1.dhcpoptions.oc1.sa-saopaulo-1.aaaaaaaa242fwkvbaw26i3ygkixgxyuye36kaequsfb6wa4m6x3mzausatta",
+    "display-name": "kt-cluster-prontclinic-prod-private-subnet",
+    "dns-label": "okeprivate",
+    "freeform-tags": {
+      "CostCenter": "IT",
+      "Environment": "Production",
+      "ManagedBy": "Terraform",
+      "Owner": "ProntClinic",
+      "Project": "ProntClinic"
+    },
+    "id": "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaaku5r2d4g4cejhca7djcp3ldblbacm73du2zrwuu2yum2vhkizmvq",
+    "ipv6-cidr-block": null,
+    "ipv6-cidr-blocks": null,
+    "ipv6-virtual-router-ip": null,
+    "lifecycle-state": "AVAILABLE",
+    "prohibit-internet-ingress": true,
+    "prohibit-public-ip-on-vnic": true,
+    "route-table-id": "ocid1.routetable.oc1.sa-saopaulo-1.aaaaaaaaq6v5zfwtxnwlstrqeqzjxajhtmmfwpi5mw36pn377d73l4yqbelq",
+    "security-list-ids": [
+      "ocid1.securitylist.oc1.sa-saopaulo-1.aaaaaaaan5mighabgdwkstngx4imd7yo3ysq4ctlgqcznorgqcxxcr3vkcjq"
+    ],
+    "subnet-domain-name": "okeprivate.okevcn.oraclevcn.com",
+    "time-created": "2025-10-16T13:50:15.458000+00:00",
+    "vcn-id": "ocid1.vcn.oc1.sa-saopaulo-1.amaaaaaauye2lgqawgnztfoee3bcd76gqwexwklcqufgppdkcuiu264i2onq",
+    "virtual-router-ip": "172.16.1.1",
+    "virtual-router-mac": "00:00:17:E9:8D:1D"
+  },
+  "etag": "c45af553"
+}

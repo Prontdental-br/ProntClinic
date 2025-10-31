@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "title": "Funcionalidades do Sistema",
+    "subtitle": "Neste vídeo você irá aprender todas funcionalidades do sistema Clairis",
+    "idVideo": "TstyG8Pvduk",
+    "titleModalVideo": "Como funciona o sistema Clairis?",
+    "subTitleModalVideo": "Siga os passos abaixo para utilizar o sistema Clairis"
+  },
+  
+  {
+    "id": 2,
+    "title": "Como configurar o Menu Clínica",
+    "subtitle": "Neste vídeo você irá aprender como configurar o menu clínica no sistema Clairis.",
+    "idVideo": "AZTw3_sYxXo",
+    "titleModalVideo": "Como funciona a configuração do menu Clínica ?",
+    "subTitleModalVideo": "Siga os passos abaixo para utilizar o sistema Clairis"
+  },
+
+  {
+    "id": 3,
+    "title": "Prontuário Digital Inteligente com Assinatura do Paciente",
+    "subtitle": "Neste vídeo você irá aprender como funciona o prontuário digital inteligente com assinatura do paciente.",
+    "idVideo": "hZSXNHg1uNo",
+    "titleModalVideo": "Como funciona o prontuário digital com assinatura do paciente ?",
+    "subTitleModalVideo": "Siga os passos abaixo para utilizar o sistema Clairis"
+  },
+
+  {
+    "id": 4,
+    "title": "Painel do Sistema",
+    "subtitle": "Neste vídeo você irá aprender todas funcionalidades do menu painel",
+    "idVideo": "hMeQ8uX3Z3U",
+    "titleModalVideo": "Como funciona o painel do sistema Clairis?",
+    "subTitleModalVideo": "Siga os passos abaixo para utilizar o sistema Clairis"
+  },
+  {
+    "id": 5,
+    "title": "Cadastro do Paciente",
+    "subtitle": "Neste vídeo você irá aprender como cadastrar um paciente.",
+    "idVideo": "z4BqbKtH4oM",
+    "titleModalVideo": "Como funciona o cadastro do paciente?",
+    "subTitleModalVideo": "Siga os passos abaixo para utilizar o sistema Clairis"
+  },
+  {
+    "id": 6,
+    "title": "Prontuário Digital Inteligente com Assinatura do Paciente",
+    "subtitle": "Neste vídeo você irá aprender como funciona o prontuário digital inteligente com assinatura do paciente.",
+    "idVideo": "-7wXtfmM_Gg",
+    "titleModalVideo": "Como funciona o cadastro do paciente?",
+    "subTitleModalVideo": "Siga os passos abaixo para utilizar o sistema Clairis"
+  }
+ 
+]

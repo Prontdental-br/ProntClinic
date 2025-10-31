@@ -1,0 +1,12 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: pgadmin-basic-auth
+  namespace: ptcc-development
+  labels:
+    app: pgadmin-dev
+    project: "ProntDental"
+    environment: "development"
+spec:
+  basicAuth:
+    secret: pgadmin-basic-auth

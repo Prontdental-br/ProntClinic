@@ -1,0 +1,76 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ES5",
+    "noUnusedLocals": false,
+    "checkJs": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "downlevelIteration": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@core/*": [
+        "./src/@core/*"
+      ],
+      "@layouts/*": [
+        "./src/@layouts/*"
+      ],
+      "@menu/*": [
+        "./src/@menu/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@configs/*": [
+        "./src/configs/*"
+      ],
+      "@views/*": [
+        "./src/views/*"
+      ],
+      "@reducers/*": [
+        "./src/reducers/*"
+      ]
+    }
+  },
+  "include": [
+    "./src/",
+    "tsconfig.server.json",
+    "next.config.mjs",
+    "tailwind.config.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

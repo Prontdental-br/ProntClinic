@@ -1,0 +1,65 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: postgresql-external-ingress
+  namespace: ptcc-development
+  labels:
+    app: postgresql
+    project: "ProntDental"
+    environment: "development"
+    access: "external"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: default
+    traefik.ingress.kubernetes.io/router.middlewares: postgresql-auth@kubernetescrd
+    # Configuração para PostgreSQL via TCP
+    traefik.ingress.kubernetes.io/service.serverstransport: postgresql-tls@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - postgresql-d.prontclinic.com.br
+    secretName: postgresql-external-tls
+  rules:
+  - host: postgresql-d.prontclinic.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: postgresql-external
+            port:
+              number: 5432
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: postgresql-auth
+  namespace: ptcc-development
+spec:
+  basicAuth:
+    secret: postgresql-external-auth
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgresql-external-auth
+  namespace: ptcc-development
+type: kubernetes.io/basic-auth
+data:
+  username: cHJvbnRjbGluaWM=  # prontclinic
+  password: cHJvbnRjbGluaWMxMjM=  # prontclinic123
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSOption
+metadata:
+  name: postgresql-tls
+  namespace: ptcc-development
+spec:
+  minVersion: "VersionTLS12"
+  cipherSuites:
+    - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+    - "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
+    - "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"

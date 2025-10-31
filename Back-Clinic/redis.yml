@@ -1,0 +1,27 @@
+#docker-compose up -d
+
+#docker-compose down
+
+#docker-compose logs -f redis-fila
+
+# docker ps -f back-end-redis-fila-1
+
+
+version: "3.8"
+
+services:
+  redis-fila:
+    image: redis:7
+    command: ["redis-server", "--appendonly", "yes", "--port", "6379"]
+    restart: always
+    volumes:
+      - redis_data:/data
+    networks:
+      - rede_interna
+
+volumes:
+  redis_data:
+
+networks:
+  rede_interna:
+    driver: bridge
