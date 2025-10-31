@@ -1,0 +1,75 @@
+name: Test Update Manifest
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Tag da imagem para testar (ex: ptcc-development-20251030221633)'
+        required: true
+        default: 'ptcc-development-test-20251031120000'
+
+jobs:
+  test-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ptcc-development
+      
+      - name: Show current image in manifest
+        run: |
+          echo "=== Imagem atual no manifest ==="
+          grep "image: prontdentalsoftware/prontclinic-api" Infra-Clinic/k8s-manifests/development/prontclinic-api/prontclinic-api-deployment.yaml || true
+      
+      - name: Update Kubernetes Deployment
+        run: |
+          IMAGE_TAG="${{ github.event.inputs.image_tag }}"
+          IMAGE_NAME="prontdentalsoftware/prontclinic-api"
+          FULL_IMAGE="${IMAGE_NAME}:${IMAGE_TAG}"
+          
+          echo "🔧 Atualizando manifest com imagem: ${FULL_IMAGE}"
+          
+          # Atualizar a imagem no deployment
+          sed -i "s|image: prontdentalsoftware/prontclinic-api:.*|image: ${FULL_IMAGE}|g" \
+            Infra-Clinic/k8s-manifests/development/prontclinic-api/prontclinic-api-deployment.yaml
+          
+          echo "✅ Manifest atualizado: ${FULL_IMAGE}"
+          
+          # Mostrar mudança
+          echo ""
+          echo "=== Nova imagem no manifest ==="
+          grep "image: prontdentalsoftware/prontclinic-api" Infra-Clinic/k8s-manifests/development/prontclinic-api/prontclinic-api-deployment.yaml
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Commit and Push
+        run: |
+          IMAGE_TAG="${{ github.event.inputs.image_tag }}"
+          
+          git add Infra-Clinic/k8s-manifests/development/prontclinic-api/prontclinic-api-deployment.yaml
+          
+          if git diff --staged --quiet; then
+            echo "⚠️  Nenhuma mudança para commitar (imagem pode ser a mesma)"
+          else
+            echo "📝 Fazendo commit das mudanças..."
+            git commit -m "test: atualizar prontclinic-api para ${IMAGE_TAG} (teste)
+
+            - Atualizada imagem para prontdentalsoftware/prontclinic-api:${IMAGE_TAG}
+            - Teste de atualização automática via GitHub Actions workflow"
+            
+            git push origin ptcc-development
+            echo "✅ Commit e push realizados com sucesso!"
+            echo ""
+            echo "📊 Resumo:"
+            echo "  - Tag: ${IMAGE_TAG}"
+            echo "  - Imagem: prontdentalsoftware/prontclinic-api:${IMAGE_TAG}"
+            echo "  - Commit: $(git rev-parse --short HEAD)"
+          fi
+
