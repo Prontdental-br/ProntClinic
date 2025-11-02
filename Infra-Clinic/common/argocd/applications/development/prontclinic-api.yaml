@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prontclinic-api
+  namespace: argocd
+  labels:
+    app: prontclinic-api
+    project: ProntClinic
+    environment: development
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: ptcc-development
+  
+  # Repositório Git
+  source:
+    repoURL: https://github.com/Prontdental-br/Infra-Clinic.git
+    targetRevision: ptcc-production
+    path: k8s-manifests/development/prontclinic-api
+    
+  # Destino (onde será aplicado)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ptcc-development
+  
+  # Sincronização automática
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+  
+  # Configurações de revisão
+  revisionHistoryLimit: 10
+  
+  # Ignorar diferenças (se necessário)
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+

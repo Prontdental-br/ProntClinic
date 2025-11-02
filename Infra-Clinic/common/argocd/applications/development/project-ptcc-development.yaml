@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ptcc-development
+  namespace: argocd
+  labels:
+    project: ProntClinic
+    environment: development
+spec:
+  description: Project para aplicações do ambiente de desenvolvimento ProntClinic
+  
+  # Repositórios permitidos
+  sourceRepos:
+    - 'https://github.com/Prontdental-br/Infra-Clinic.git'
+    - '*'
+  
+  # Destinos permitidos
+  destinations:
+    - namespace: ptcc-development
+      server: https://kubernetes.default.svc
+    - namespace: '*'
+      server: '*'
+  
+  # Permissões de cluster
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  
+  # Permissões de namespace
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  
+  # Roles e permissões
+  roles:
+    - name: admin
+      policies:
+        - p, proj:ptcc-development:admin, applications, *, ptcc-development/*, allow
+        - p, proj:ptcc-development:admin, repositories, get, *, allow
+      groups:
+        - argocd-admins
+

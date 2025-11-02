@@ -30,12 +30,22 @@ fi
 
 echo "✅ Repositório ArgoCD configurado"
 
+# Determinar caminho do script e values.yaml
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VALUES_FILE="${SCRIPT_DIR}/values.yaml"
+
+if [ ! -f "$VALUES_FILE" ]; then
+    echo "❌ Arquivo values.yaml não encontrado em: $VALUES_FILE"
+    exit 1
+fi
+
 # Instalar ArgoCD via Helm
 echo "🔧 Instalando ArgoCD com valores personalizados..."
+echo "📄 Usando values.yaml de: $VALUES_FILE"
 helm upgrade --install argocd argo/argo-cd \
   --namespace argocd \
   --create-namespace \
-  --values values.yaml \
+  --values "$VALUES_FILE" \
   --wait \
   --timeout 10m
 

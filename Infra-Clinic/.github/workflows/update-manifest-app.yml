@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ptcc-development
+          ref: ptcc-production
       
       - name: Determine image tag
         id: image_tag
@@ -77,7 +77,7 @@ jobs:
             - Atualizada imagem para prontdentalsoftware/prontclinic-app:${IMAGE_TAG}
             - Auto-atualizado via GitHub Actions workflow"
             
-            git push origin ptcc-development
+            git push origin ptcc-production
             echo "✅ Commit realizado com sucesso"
           fi
 

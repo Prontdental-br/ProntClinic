@@ -5,8 +5,6 @@ on:
     branches:
       - ptcc-development
       - main
-    paths:
-      - 'Back-Clinic/**'
   workflow_dispatch:
 
 env:
@@ -46,7 +44,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./Back-Clinic
+          context: .
           push: true
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.image_tag.outputs.tag }}
@@ -55,7 +53,7 @@ jobs:
       - name: Trigger manifest update
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
           repository: Prontdental-br/Infra-Clinic
           event-type: update-manifest-api
           client-payload: |
@@ -63,5 +61,4 @@ jobs:
               "image_tag": "${{ steps.image_tag.outputs.tag }}",
               "docker_image": "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}"
             }
-        continue-on-error: true
 

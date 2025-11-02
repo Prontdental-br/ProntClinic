@@ -85,7 +85,10 @@ common/argocd/
 ├── install.sh           # Script de instalação automatizada
 ├── README.md           # Esta documentação
 └── applications/       # Aplicações ArgoCD
+    ├── deploy.sh       # Script para deploy das applications
     └── development/
+        ├── project-ptcc-development.yaml  # AppProject
+        └── prontclinic-api.yaml           # Application prontclinic-api
 ```
 
 ## 🔧 Configuração
@@ -241,10 +244,34 @@ kubectl patch ingress argocd-server -n argocd --type=json \
   -p='[{"op": "replace", "path": "/spec/tls/0/hosts/0", "value": "argocd-d.prontclinic.com.br"}]'
 ```
 
+## 🎯 Applications Configuradas
+
+### ProntClinic API
+
+**Application**: `prontclinic-api`
+- **Repositório**: https://github.com/Prontdental-br/Infra-Clinic.git
+- **Branch**: `ptcc-production`
+- **Path**: `k8s-manifests/development/prontclinic-api`
+- **Namespace**: `ptcc-development`
+- **Sincronização**: Automática (auto-sync, self-heal, prune)
+
+**Deploy da Application**:
+```bash
+cd common/argocd/applications/
+./deploy.sh
+```
+
+Ou manualmente:
+```bash
+kubectl apply -f common/argocd/applications/development/project-ptcc-development.yaml
+kubectl apply -f common/argocd/applications/development/prontclinic-api.yaml
+```
+
 ## ✅ Status Atual
 
 - ✅ ArgoCD instalado via Helm
 - ✅ 8 pods rodando em `argocd` namespace
 - ✅ Ingress configurado para `argocd-d.prontclinic.com.br`
 - ✅ TLS automático via cert-manager
+- ✅ Application `prontclinic-api` configurada
 - ⚠️ Alterar senha inicial após primeiro login
