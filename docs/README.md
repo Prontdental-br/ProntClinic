@@ -18,7 +18,13 @@ Bem-vindo à documentação central do projeto ProntClinic!
    - Timeline de deploy
    - Conceitos de GitOps e CD
 
-3. **[Como Criar Token GitHub](./COMO_CRIAR_TOKEN_GITHUB.md)** 🔑
+3. **[Secrets Necessários](./SECRETS_NECESSARIOS.md)** 🔐
+   - Lista completa de secrets
+   - Como criar cada secret
+   - Onde adicionar no GitHub
+   - Troubleshooting
+
+4. **[Como Criar Token GitHub](./COMO_CRIAR_TOKEN_GITHUB.md)** 🔑
    - Passo a passo para criar PAT
    - Permissões necessárias
    - Como configurar nos repositórios
