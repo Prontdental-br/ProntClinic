@@ -18,6 +18,42 @@ jobs:
       pull-requests: write
 
     steps:
+      # Notifica início do deploy
+      - name: Notificar início do deploy no Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+                "title": "🚀 Deploy Iniciado - Front-Clinic App",
+                "description": "Iniciando build da imagem Docker do **prontclinic-app**",
+                "color": 3447003,
+                "fields": [
+                  {
+                    "name": "📦 Repositório",
+                    "value": "'"$GITHUB_REPOSITORY"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "🌿 Branch",
+                    "value": "'"$GITHUB_REF_NAME"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "👤 Autor",
+                    "value": "'"$GITHUB_ACTOR"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "📝 Commit",
+                    "value": "[`'"${GITHUB_SHA:0:7}"'`](https://github.com/'"$GITHUB_REPOSITORY"'/commit/'"$GITHUB_SHA"')",
+                    "inline": false
+                  }
+                ],
+                "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
+              }]
+            }' \
+            "https://discord.com/api/webhooks/1434616055807873127/roVY8wNVy4Ay2uKrBydVVHlxXVDfKOto-TvWexKhz8yp_NI1eiSCBl1ti6WnB7IT5wHo"
+      
       # Checkout do código do repositório
       - name: Checkout do repositório
         uses: actions/checkout@v4
@@ -111,21 +147,90 @@ jobs:
         timeout-minutes: 20
 
       # Notifica sucesso
-      - name: Notificar sucesso
+      - name: Notificar sucesso no Discord
         run: |
-          echo "✅ Imagem Docker construída e enviada com sucesso!"
-          echo "📦 Imagem criada:"
-          echo "  - $IMAGE_TAG"
-          echo "  - $STABLE_TAG"
-          echo "🏗️ Plataforma: linux/arm64"
-          echo "🌿 Branch: $GITHUB_REF_NAME"
-          echo "📝 Commit: $GITHUB_SHA"
+          curl -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+                "title": "✅ Deploy Concluído com Sucesso - Front-Clinic App",
+                "description": "Imagem Docker construída, enviada e manifest atualizado com sucesso!",
+                "color": 5763719,
+                "fields": [
+                  {
+                    "name": "📦 Imagem",
+                    "value": "`'"$IMAGE_TAG"'`",
+                    "inline": false
+                  },
+                  {
+                    "name": "🏗️ Plataforma",
+                    "value": "linux/arm64",
+                    "inline": true
+                  },
+                  {
+                    "name": "🌿 Branch",
+                    "value": "'"$GITHUB_REF_NAME"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "👤 Autor",
+                    "value": "'"$GITHUB_ACTOR"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "📝 Commit",
+                    "value": "[`'"${GITHUB_SHA:0:7}"'`](https://github.com/'"$GITHUB_REPOSITORY"'/commit/'"$GITHUB_SHA"')",
+                    "inline": false
+                  },
+                  {
+                    "name": "🚀 Próximo Passo",
+                    "value": "ArgoCD irá detectar e aplicar a mudança automaticamente",
+                    "inline": false
+                  }
+                ],
+                "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
+              }]
+            }' \
+            "https://discord.com/api/webhooks/1434616055807873127/roVY8wNVy4Ay2uKrBydVVHlxXVDfKOto-TvWexKhz8yp_NI1eiSCBl1ti6WnB7IT5wHo"
 
-      # Notifica falha (opcional)
-      - name: Notificar falha
+      # Notifica falha
+      - name: Notificar falha no Discord
         if: failure()
         run: |
-          echo "❌ Build falhou!"
-          echo "🌿 Branch: $GITHUB_REF_NAME"
-          echo "📝 Commit: $GITHUB_SHA"
+          curl -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+                "title": "❌ Deploy Falhou - Front-Clinic App",
+                "description": "Erro durante o build ou push da imagem Docker",
+                "color": 15158332,
+                "fields": [
+                  {
+                    "name": "📦 Repositório",
+                    "value": "'"$GITHUB_REPOSITORY"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "🌿 Branch",
+                    "value": "'"$GITHUB_REF_NAME"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "👤 Autor",
+                    "value": "'"$GITHUB_ACTOR"'",
+                    "inline": true
+                  },
+                  {
+                    "name": "📝 Commit",
+                    "value": "[`'"${GITHUB_SHA:0:7}"'`](https://github.com/'"$GITHUB_REPOSITORY"'/commit/'"$GITHUB_SHA"')",
+                    "inline": false
+                  },
+                  {
+                    "name": "🔗 Logs",
+                    "value": "[Ver workflow](https://github.com/'"$GITHUB_REPOSITORY"'/actions/runs/'"$GITHUB_RUN_ID"')",
+                    "inline": false
+                  }
+                ],
+                "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
+              }]
+            }' \
+            "https://discord.com/api/webhooks/1434616055807873127/roVY8wNVy4Ay2uKrBydVVHlxXVDfKOto-TvWexKhz8yp_NI1eiSCBl1ti6WnB7IT5wHo"
 
