@@ -1,22 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-fila-d-redis
+  name: prontclinic-api-redis
   namespace: ptcc-development
   labels:
-    app: api-fila-d-redis
+    app: prontclinic-api-redis
+    component: redis
     project: "ProntClinic"
     environment: "development"
-    component: "redis"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate  # Redis usa Recreate devido ao PVC ReadWriteOnce
   selector:
     matchLabels:
-      app: api-fila-d-redis
+      app: prontclinic-api-redis
   template:
     metadata:
       labels:
-        app: api-fila-d-redis
+        app: prontclinic-api-redis
+        component: redis
     spec:
       containers:
       - name: redis
@@ -24,15 +27,21 @@ spec:
         ports:
         - containerPort: 6379
           name: redis
-        env:
-        - name: REDIS_PASSWORD
-          value: "redis123"
         command:
         - redis-server
         - --requirepass
         - redis123
         - --appendonly
         - "yes"
+        - --save
+        - "900 1"
+        - --save
+        - "300 10"
+        - --save
+        - "60 10000"
+        env:
+        - name: REDIS_PASSWORD
+          value: "redis123"
         resources:
           requests:
             memory: "128Mi"
@@ -47,7 +56,7 @@ spec:
             - -a
             - redis123
             - ping
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
@@ -67,4 +76,6 @@ spec:
           mountPath: /data
       volumes:
       - name: redis-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: prontclinic-api-redis-pvc
+

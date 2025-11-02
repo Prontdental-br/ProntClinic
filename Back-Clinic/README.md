@@ -77,3 +77,4 @@ Nest is [MIT licensed](LICENSE).
 # Test deploy dom 02 nov 2025 13:36:35 -03
 # Test single tag dom 02 nov 2025 13:49:13 -03
 # Test zero-downtime deployment dom 02 nov 2025 13:57:49 -03
+# Force rebuild with /health endpoint - dom 02 nov 2025 15:20:09 -03

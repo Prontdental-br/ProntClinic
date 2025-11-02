@@ -1,17 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prontclinic-app
+  name: api-chat-d
   namespace: argocd
   labels:
-    app: prontclinic-app
+    app: api-chat-d
     project: ProntClinic
     environment: development
-  annotations:
-    notifications.argoproj.io/subscribe.on-deployed.discord: ""
-    notifications.argoproj.io/subscribe.on-sync-failed.discord: ""
-    notifications.argoproj.io/subscribe.on-sync-running.discord: ""
-    notifications.argoproj.io/subscribe.on-health-degraded.discord: ""
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -21,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/Prontdental-br/Infra-Clinic.git
     targetRevision: ptcc-production
-    path: k8s-manifests/development/prontclinic-app
+    path: k8s-manifests/development/api-chat-d
     
   # Destino (onde será aplicado)
   destination:

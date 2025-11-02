@@ -1,0 +1,14 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: oci-fss
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: fss.csi.oraclecloud.com
+parameters:
+  availabilityDomain: SA-SAOPAULO-1-AD-1
+  # O mount target será criado automaticamente na subnet dos worker nodes
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+

@@ -1,0 +1,174 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+data:
+  # Service configuration for webhook
+  service.webhook.discord: |
+    url: $discord-webhook-url
+    headers:
+    - name: Content-Type
+      value: application/json
+
+  # Template for sync running
+  template.app-sync-running: |
+    webhook:
+      discord:
+        method: POST
+        body: |
+          {
+            "embeds": [{
+              "title": "🔄 ArgoCD Sync Iniciado - {{.app.metadata.name}}",
+              "description": "Sincronização iniciada no cluster Kubernetes",
+              "color": 3447003,
+              "fields": [
+                {
+                  "name": "📦 Aplicação",
+                  "value": "{{.app.metadata.name}}",
+                  "inline": true
+                },
+                {
+                  "name": "🌿 Ambiente",
+                  "value": "{{.app.metadata.labels.environment}}",
+                  "inline": true
+                },
+                {
+                  "name": "🔄 Status",
+                  "value": "{{.app.status.operationState.phase}}",
+                  "inline": true
+                }
+              ],
+              "timestamp": "{{.app.status.operationState.startedAt}}"
+            }]
+          }
+
+  # Template for successful deployment
+  template.app-deployed: |
+    webhook:
+      discord:
+        method: POST
+        body: |
+          {
+            "embeds": [{
+              "title": "✅ Deploy Completo no Cluster - {{.app.metadata.name}}",
+              "description": "Aplicação sincronizada e rodando com sucesso!",
+              "color": 5763719,
+              "fields": [
+                {
+                  "name": "📦 Aplicação",
+                  "value": "{{.app.metadata.name}}",
+                  "inline": true
+                },
+                {
+                  "name": "🌿 Ambiente",
+                  "value": "{{.app.metadata.labels.environment}}",
+                  "inline": true
+                },
+                {
+                  "name": "✅ Health",
+                  "value": "{{.app.status.health.status}}",
+                  "inline": true
+                },
+                {
+                  "name": "🚀 Status",
+                  "value": "Deploy concluído e aplicação healthy!",
+                  "inline": false
+                }
+              ],
+              "timestamp": "{{.app.status.operationState.finishedAt}}"
+            }]
+          }
+
+  # Template for failed sync
+  template.app-sync-failed: |
+    webhook:
+      discord:
+        method: POST
+        body: |
+          {
+            "embeds": [{
+              "title": "❌ Falha no Deploy - {{.app.metadata.name}}",
+              "description": "Erro durante sincronização no cluster Kubernetes",
+              "color": 15158332,
+              "fields": [
+                {
+                  "name": "📦 Aplicação",
+                  "value": "{{.app.metadata.name}}",
+                  "inline": true
+                },
+                {
+                  "name": "🌿 Ambiente",
+                  "value": "{{.app.metadata.labels.environment}}",
+                  "inline": true
+                },
+                {
+                  "name": "❌ Status",
+                  "value": "{{.app.status.operationState.phase}}",
+                  "inline": true
+                },
+                {
+                  "name": "📝 Erro",
+                  "value": "{{.app.status.operationState.message}}",
+                  "inline": false
+                }
+              ],
+              "timestamp": "{{.app.status.operationState.finishedAt}}"
+            }]
+          }
+
+  # Template for degraded health
+  template.app-health-degraded: |
+    webhook:
+      discord:
+        method: POST
+        body: |
+          {
+            "embeds": [{
+              "title": "⚠️ Aplicação Degradada - {{.app.metadata.name}}",
+              "description": "A aplicação está com problemas de saúde",
+              "color": 16776960,
+              "fields": [
+                {
+                  "name": "📦 Aplicação",
+                  "value": "{{.app.metadata.name}}",
+                  "inline": true
+                },
+                {
+                  "name": "🌿 Ambiente",
+                  "value": "{{.app.metadata.labels.environment}}",
+                  "inline": true
+                },
+                {
+                  "name": "⚠️ Health",
+                  "value": "{{.app.status.health.status}}",
+                  "inline": true
+                }
+              ]
+            }]
+          }
+
+  # Triggers
+  trigger.on-deployed: |
+    - description: Application is synced and healthy
+      send:
+      - app-deployed
+      when: app.status.operationState != nil and app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+
+  trigger.on-health-degraded: |
+    - description: Application has degraded
+      send:
+      - app-health-degraded
+      when: app.status.health.status == 'Degraded'
+
+  trigger.on-sync-failed: |
+    - description: Application syncing has failed
+      send:
+      - app-sync-failed
+      when: app.status.operationState != nil and app.status.operationState.phase in ['Error', 'Failed']
+
+  trigger.on-sync-running: |
+    - description: Application is being synced
+      send:
+      - app-sync-running
+      when: app.status.operationState != nil and app.status.operationState.phase in ['Running']

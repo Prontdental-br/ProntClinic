@@ -110,6 +110,8 @@ import { ReturnListModule } from './return-list/return-list.module';
 import { ReturnList } from './return-list/entities/return-list.entity';
 import { CategoriesModule } from './categories/categories.module';
 import { RegisterDocumentsModule } from './register-documents/register-documents.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -246,8 +248,9 @@ import { RegisterDocumentsModule } from './register-documents/register-documents
     SignUpModule,
     RegisterDocumentsModule,
   ],
-  controllers: [AsaasSubscriptionController],
+  controllers: [AppController, AsaasSubscriptionController],
   providers: [
+    AppService,
     QuotePlanService,
     AsaasSubscriptionService,
     PromotionalCodeService,

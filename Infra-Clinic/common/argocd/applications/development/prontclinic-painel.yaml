@@ -7,6 +7,11 @@ metadata:
     app: prontclinic-painel
     project: ProntClinic
     environment: development
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed.discord: ""
+    notifications.argoproj.io/subscribe.on-sync-failed.discord: ""
+    notifications.argoproj.io/subscribe.on-sync-running.discord: ""
+    notifications.argoproj.io/subscribe.on-health-degraded.discord: ""
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
