@@ -9,6 +9,11 @@ metadata:
     environment: "development"
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: prontclinic-painel
@@ -21,7 +26,7 @@ spec:
       - name: dockerhub-secret
       containers:
       - name: prontclinic-painel
-        image: prontdentalsoftware/prontclinic-painel:ptcc-development-20251030192408
+        image: prontdentalsoftware/prontclinic-painel:ptcc-development-20251102155933
         ports:
         - containerPort: 3030
           name: http
@@ -41,7 +46,7 @@ spec:
         
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 3030
           initialDelaySeconds: 30
           periodSeconds: 10
@@ -50,7 +55,7 @@ spec:
         
         readinessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 3030
           initialDelaySeconds: 10
           periodSeconds: 5

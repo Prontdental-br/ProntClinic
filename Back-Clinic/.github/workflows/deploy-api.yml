@@ -35,18 +35,14 @@ jobs:
           TAG_ONLY="${BRANCH}-${TIMESTAMP}"
           # Tag única baseada no timestamp
           IMAGE_TAG="prontdentalsoftware/prontclinic-api:${BRANCH}-${TIMESTAMP}"
-          # Tag estável por branch para consumo pelo Argo CD Image Updater
-          STABLE_TAG="prontdentalsoftware/prontclinic-api:${BRANCH}"
 
           # Define variáveis globais
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
-          echo "STABLE_TAG=$STABLE_TAG" >> $GITHUB_ENV
           echo "TAG_ONLY=$TAG_ONLY" >> $GITHUB_ENV
           
           # Output para uso posterior
           echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-          echo "stable_tag=$STABLE_TAG" >> $GITHUB_OUTPUT
           echo "tag_only=$TAG_ONLY" >> $GITHUB_OUTPUT
 
       # Valida variáveis necessárias
@@ -90,9 +86,7 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/arm64  # 🎯 APENAS ARM64
-          tags: |
-            ${{ env.IMAGE_TAG }}
-            ${{ env.STABLE_TAG }}
+          tags: ${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -116,9 +110,7 @@ jobs:
       - name: Notificar sucesso
         run: |
           echo "✅ Imagem Docker construída e enviada com sucesso!"
-          echo "📦 Imagem criada:"
-          echo "  - $IMAGE_TAG"
-          echo "  - $STABLE_TAG (rastreadas pelo Argo CD Image Updater)"
+          echo "📦 Imagem criada: $IMAGE_TAG"
           echo "🏗️ Plataforma: linux/arm64"
           echo "🌿 Branch: $GITHUB_REF_NAME"
           echo "📝 Commit: $GITHUB_SHA"

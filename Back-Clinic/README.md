@@ -74,3 +74,6 @@ Nest is [MIT licensed](LICENSE).
 # Teste do GitHub Actions
 ## Deploy Test - $(date)
 ### Teste de workflow com registros Docker corrigidos - $(date)
+# Test deploy dom 02 nov 2025 13:36:35 -03
+# Test single tag dom 02 nov 2025 13:49:13 -03
+# Test zero-downtime deployment dom 02 nov 2025 13:57:49 -03

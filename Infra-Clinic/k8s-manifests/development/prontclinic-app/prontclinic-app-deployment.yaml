@@ -9,6 +9,11 @@ metadata:
     environment: "development"
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: prontclinic-app
@@ -34,24 +39,23 @@ spec:
             memory: "512Mi"
             cpu: "250m"
         
-        # Health checks removidos temporariamente para debug
-        # livenessProbe:
-        #   httpGet:
-        #     path: /health
-        #     port: 3000
-        #   initialDelaySeconds: 30
-        #   periodSeconds: 10
-        #   timeoutSeconds: 5
-        #   failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         
-        # readinessProbe:
-        #   httpGet:
-        #     path: /health
-        #     port: 3000
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 5
-        #   timeoutSeconds: 3
-        #   failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
         
         # Volume mounts for persistent data if needed
         volumeMounts:
