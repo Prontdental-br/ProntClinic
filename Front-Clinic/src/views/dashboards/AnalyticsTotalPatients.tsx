@@ -8,8 +8,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import api from 'src/@core/components/api-client'
 import { useRouter } from 'next/navigation'
-import { Chip, Grid, Modal } from '@mui/material'
-import { Box } from '@mui/system'
+import { Chip, Grid, Modal, Box } from '@mui/material'
 import Icon from 'src/@core/components/icon'
 import { DataGrid, GridColDef, ptBR } from '@mui/x-data-grid'
 import dayjs from 'dayjs'
@@ -17,17 +16,6 @@ import FallbackSpinner from 'src/@core/components/spinner'
 import { DailyReport } from 'src/pages/home'
 import moment from 'moment'
 import Typewriter from 'src/components/Typewriter'
-
-/*
-const jsonData = [
-  { key: 1, text: 'Total de pacientes cadastrados', amount: 1 },
-  { key: 2, text: 'Aniversariantes', amount: 2 },
-
-  //{ key: 3, text: 'Pacientes atendidos nos últimos 6 meses', amount: 3 },
-  //{ key: 4, text: 'Pacientes com débito em atraso', amount: 4 },
-  //{ key: 5, text: 'Novos pacientes atendidos no mês', amount: 5 }
-]
-*/
 
 interface Props {
   generatingReport: boolean
@@ -168,7 +156,16 @@ const ModalBirhday = ({ open, onClose }: { open: boolean; onClose: () => void })
           Aniversariantes
         </Typography>
         <Box sx={{ height: 500, width: '100%' }}>
-          <DataGrid rows={rows} columns={columns} disableColumnMenu localeText={{...ptBR.components.MuiDataGrid.defaultProps.localeText, noRowsLabel: 'Nenhum registro encontrado', columnMenuManageColumns: 'Gerenciar colunas',}} />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            disableColumnMenu
+            localeText={{
+              ...ptBR.components.MuiDataGrid.defaultProps.localeText,
+              noRowsLabel: 'Nenhum registro encontrado',
+              columnMenuManageColumns: 'Gerenciar colunas'
+            }}
+          />
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
           <Button variant='contained' onClick={onClose}>
@@ -215,14 +212,32 @@ const AnalyticsTotalPatients = ({ generatingReport, reportData, generateReport, 
   return (
     <>
       <ModalBirhday open={openModal} onClose={handleCloseModal} />
-      <Card>
+
+      {/* Card configurado para ser o container do scroll e do botão fixo */}
+      <Card
+        sx={{
+          height: 400, // Altura fixa do Card
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative' // Necessário para o posicionamento sticky/absolute funcionar
+        }}
+      >
         <CardHeader
           title='Pacientes'
           subheader='Total de pacientes por status'
           subheaderTypographyProps={{ sx: { lineHeight: 1.429 } }}
           titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }}
         />
-        <CardContent>
+
+        {/* Container para o conteúdo do relatório, que deve rolar */}
+        <Box
+          sx={{
+            overflowY: 'auto',
+            flexGrow: 1, // Ocupa todo o espaço vertical disponível
+            p: 2,
+            pt: 0
+          }}
+        >
           <List data={jsonData} />
           <Grid>
             {generatingReport && reportData !== null && (
@@ -235,11 +250,7 @@ const AnalyticsTotalPatients = ({ generatingReport, reportData, generateReport, 
               <Grid>
                 {typingIndex >= 0 && (
                   <Typography variant='h5'>
-                    <Typewriter
-                      callback={increaseTypingIndex}
-                      delay={20}
-                      text={`${selectedReportType}`}
-                    />
+                    <Typewriter callback={increaseTypingIndex} delay={20} text={`${selectedReportType}`} />
                   </Typography>
                 )}
                 <Grid>
@@ -370,16 +381,12 @@ const AnalyticsTotalPatients = ({ generatingReport, reportData, generateReport, 
                 </Grid>
                 <Grid>
                   {typingIndex >= 12 && (
-                      <Typography variant='h6'>
-                        <Typewriter
-                          callback={increaseTypingIndex}
-                          delay={20}
-                          text={`Agenda`}
-                        />
-                      </Typography>
-                    )}
+                    <Typography variant='h6'>
+                      <Typewriter callback={increaseTypingIndex} delay={20} text={`Agenda`} />
+                    </Typography>
+                  )}
                   <ul>
-                  {typingIndex >= 13 && (
+                    {typingIndex >= 13 && (
                       <li>
                         <Typewriter
                           callback={increaseTypingIndex}
@@ -428,176 +435,171 @@ const AnalyticsTotalPatients = ({ generatingReport, reportData, generateReport, 
                 </Grid>
                 <Grid>
                   {typingIndex >= 18 && (
-                      <Typography variant='h6'>
-                        <Typewriter
-                          callback={increaseTypingIndex}
-                          delay={20}
-                          text={`Orçamentos`}
-                        />
-                      </Typography>
-                    )}
+                    <Typography variant='h6'>
+                      <Typewriter callback={increaseTypingIndex} delay={20} text={`Orçamentos`} />
+                    </Typography>
+                  )}
                   <ul>
-                  {typingIndex >= 19 && (
+                    {typingIndex >= 19 && (
                       <li>
-                        <Typewriter
-                          callback={increaseTypingIndex}
-                          delay={20}
-                          text={`Aprovados`}
-                        />
+                        <Typewriter callback={increaseTypingIndex} delay={20} text={`Aprovados`} />
                         <ul>
-                          {
-                            typingIndex >= 20 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Total: ${reportData.budgets.approved}`}
-                                />
-                              </li>
-                            )
-                          }
-                          {
-                            typingIndex >= 21 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Total: ${reportData.budgets.approvedValue.toLocaleString('pt-br', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                  })}`}
-                                />
-                              </li>
-                            )
-                          }
-                          {
-                            typingIndex >= 22 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Ticket Médio: ${reportData.budgets.approvedMediumValue.toLocaleString('pt-br', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                  })}`}
-                                />
-                              </li>
-                            )
-                          }
+                          {typingIndex >= 20 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Total: ${reportData.budgets.approved}`}
+                              />
+                            </li>
+                          )}
+                          {typingIndex >= 21 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Total: ${reportData.budgets.approvedValue.toLocaleString('pt-br', {
+                                  style: 'currency',
+                                  currency: 'BRL'
+                                })}`}
+                              />
+                            </li>
+                          )}
+                          {typingIndex >= 22 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Ticket Médio: ${reportData.budgets.approvedMediumValue.toLocaleString('pt-br', {
+                                  style: 'currency',
+                                  currency: 'BRL'
+                                })}`}
+                              />
+                            </li>
+                          )}
                         </ul>
                       </li>
                     )}
                     {typingIndex >= 23 && (
                       <li>
-                        <Typewriter
-                          callback={increaseTypingIndex}
-                          delay={20}
-                          text={`Em Aberto`}
-                        />
+                        <Typewriter callback={increaseTypingIndex} delay={20} text={`Em Aberto`} />
                         <ul>
-                          {
-                            typingIndex >= 24 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Total: ${reportData.budgets.open}`}
-                                />
-                              </li>
-                            )
-                          }
-                          {
-                            typingIndex >= 25 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Total: ${reportData.budgets.openValue.toLocaleString('pt-br', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                  })}`}
-                                />
-                              </li>
-                            )
-                          }
-                          {
-                            typingIndex >= 26 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Ticket Médio: ${reportData.budgets.openMediumValue.toLocaleString('pt-br', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                  })}`}
-                                />
-                              </li>
-                            )
-                          }
+                          {typingIndex >= 24 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Total: ${reportData.budgets.open}`}
+                              />
+                            </li>
+                          )}
+                          {typingIndex >= 25 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Total: ${reportData.budgets.openValue.toLocaleString('pt-br', {
+                                  style: 'currency',
+                                  currency: 'BRL'
+                                })}`}
+                              />
+                            </li>
+                          )}
+                          {typingIndex >= 26 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Ticket Médio: ${reportData.budgets.openMediumValue.toLocaleString('pt-br', {
+                                  style: 'currency',
+                                  currency: 'BRL'
+                                })}`}
+                              />
+                            </li>
+                          )}
                         </ul>
                       </li>
                     )}
                     {typingIndex >= 27 && (
                       <li>
-                        <Typewriter
-                          callback={increaseTypingIndex}
-                          delay={20}
-                          text={`Rejeitados`}
-                        />
+                        <Typewriter callback={increaseTypingIndex} delay={20} text={`Rejeitados`} />
                         <ul>
-                          {
-                            typingIndex >= 28 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Total: ${reportData.budgets.rejected}`}
-                                />
-                              </li>
-                            )
-                          }
-                          {
-                            typingIndex >= 29 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Total: ${reportData.budgets.rejectedValue.toLocaleString('pt-br', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                  })}`}
-                                />
-                              </li>
-                            )
-                          }
-                          {
-                            typingIndex >= 30 && (
-                              <li>
-                                <Typewriter
-                                  callback={increaseTypingIndex}
-                                  delay={20}
-                                  text={`Ticket Médio: ${reportData.budgets.rejectedMediumValue.toLocaleString('pt-br', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                  })}`}
-                                />
-                              </li>
-                            )
-                          }
+                          {typingIndex >= 28 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Total: ${reportData.budgets.rejected}`}
+                              />
+                            </li>
+                          )}
+                          {typingIndex >= 29 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Total: ${reportData.budgets.rejectedValue.toLocaleString('pt-br', {
+                                  style: 'currency',
+                                  currency: 'BRL'
+                                })}`}
+                              />
+                            </li>
+                          )}
+                          {typingIndex >= 30 && (
+                            <li>
+                              <Typewriter
+                                callback={increaseTypingIndex}
+                                delay={20}
+                                text={`Ticket Médio: ${reportData.budgets.rejectedMediumValue.toLocaleString('pt-br', {
+                                  style: 'currency',
+                                  currency: 'BRL'
+                                })}`}
+                              />
+                            </li>
+                          )}
                         </ul>
                       </li>
                     )}
                   </ul>
-                  {
-                    typingIndex >= 31 && (
-                      <Button onClick={generateReport}>Baixar relatório</Button>
-                    )
-                  }
+                  {typingIndex >= 31 && <Button onClick={generateReport}>Baixar relatório</Button>}
                 </Grid>
               </Grid>
             )}
           </Grid>
-        </CardContent>
+        </Box>
+        {typingIndex >= 31 && (
+          <Box
+            sx={{
+              position: 'sticky',
+              bottom: 0,
+              width: '100%',
+              p: 2,
+              borderTop: '1px solid #eee',
+              bgcolor: 'background.paper',
+              zIndex: 10,
+              display: 'flex',
+              justifyContent: 'flex-end'
+            }}
+          >
+            <Button
+              onClick={generateReport}
+              variant='contained'
+              sx={{
+                width: 200,
+                backgroundColor: '#911BC4',
+                '&:hover': {
+                  backgroundColor: '#7a14a7'
+                },
+                height: 48,
+                fontSize: '1rem',
+                fontWeight: 600,
+                borderRadius: 1
+              }}
+            >
+              Gerar Relatório
+            </Button>
+          </Box>
+        )}
       </Card>
     </>
   )

@@ -28,6 +28,7 @@ import ModalWithGrid from 'src/views/components/modalBugetOpen'
 import api from '../../@core/components/api-client'
 import { Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select } from '@mui/material'
 import YouTube from 'react-youtube'
+import { maxHeight } from '@mui/system';
 
 interface SaleDataType {
   stats: string
@@ -146,8 +147,8 @@ const AnalyticsCongratulations = ({ reportsTypes, changeSelectedReportType, sele
     <>
       <ModalWithGrid open={openModal} onClose={handleCloseModal} />
 
-      <Card sx={{ position: 'relative' }}>
-        <CardHeader
+      <Card sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+       {/*  <CardHeader
           sx={{ pb: 1.0 }}
           title='Painel Geral Financeiro'
           titleTypographyProps={{ variant: 'h6' }}
@@ -200,9 +201,9 @@ const AnalyticsCongratulations = ({ reportsTypes, changeSelectedReportType, sele
               <Icon icon='mdi:chevron-up' fontSize={20} />
             </Box>
           }
-        />
+        /> */}
 
-         <Box sx={{ position: 'absolute', top: 10, right: 10 }}>
+         {/* <Box sx={{ position: 'absolute', top: 10, right: 10 }}>
           <Button
             sx={{ display: 'flex', alignItems: 'center' }}
             onClick={() => toggleVideo()}
@@ -211,12 +212,12 @@ const AnalyticsCongratulations = ({ reportsTypes, changeSelectedReportType, sele
             <YouTubeIcon color='error' />
             VÍDEOS
           </Button>
-        </Box>
+        </Box> */}
 
-       <CardContent sx={{ p: theme => `${theme.spacing(2.75, 7.5)} !important` }}>
+       <CardContent >
     <Grid container spacing={12}>
     {/* Orçamentos em Aberto */}
-    <Grid item xs={12} sm={6}>
+    {/* <Grid item xs={12} sm={6}>
       <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
         <CustomAvatar skin='light' variant='rounded' color={openBudget.color} sx={{ mr: 4 }}>
           {openBudget.icon}
@@ -233,11 +234,11 @@ const AnalyticsCongratulations = ({ reportsTypes, changeSelectedReportType, sele
           </Typography>
         </Box>
       </Box>
-    </Grid>
+    </Grid> */}
 
     {/* Resumo Diário - Alinhado à Direita */}
-    <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-      <Box sx={{ width: 260, display: 'flex', flexDirection: 'column' }}>
+    <Grid item xs={12} sm={6} sx={{ }}>
+      <Box sx={{ width: 460, display: 'flex', flexDirection: 'column' }}>
         <Typography variant='h6' sx={{ fontWeight: 600, mb: 1 }}>
           Selecione seu Resumo
         </Typography>

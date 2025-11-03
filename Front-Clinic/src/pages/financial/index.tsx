@@ -67,6 +67,7 @@ import { AccountsPayable } from 'src/views/components/AccountsPayable'
 import { AccountsReceivable } from 'src/views/components/AccountsReceivable'
 import { format } from 'date-fns'
 import { ptBR as ptBRLOCALE } from 'date-fns/locale'
+import DespesasDonutChart from 'src/views/apps/logistics/dashboard/DespesasDonutChart'
 
 interface Props {
   debitsData: PacientDebitDataType[]
@@ -1869,6 +1870,10 @@ const Financial = () => {
 
                     <ModalBudget open={openModal} setOpen={setOpenModal} budget={selectedRowDebits} />
                   </CardContent>
+
+                  <Grid item xs={12} md={4}>
+  <DespesasDonutChart dataDebitsFiltered={dataDebitsFiltered} />
+</Grid>
                 </Card>
               </TabPanel>
               <TabPanel value='4'>

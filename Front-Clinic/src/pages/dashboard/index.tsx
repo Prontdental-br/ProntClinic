@@ -8,106 +8,310 @@ import {
   Grid,
   Card,
   CardContent,
-  Avatar,
-  Paper,
   MenuItem,
   InputLabel,
   FormControl,
   Select,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions
 } from '@mui/material'
+import dayjs, { utc } from 'dayjs'
 import { useRouter } from 'next/router'
 import { useSettings } from 'src/@core/hooks/useSettings'
 import { AuthContext } from 'src/context/AuthContext'
 import { ModalConfirmRegistration } from 'src/views/components/ModalConfirmRegistration'
-import { Cake, CalendarMonth, CalendarToday } from '@mui/icons-material'
-import Image from 'next/image'
+import { Cake, CalendarMonth } from '@mui/icons-material'
 import LogisticsShipmentStatistics from 'src/views/apps/logistics/dashboard/LogisticsShipmentStatistics'
-import WeeklySales from 'src/views/apps/logistics/dashboard/WeeklySales'
-import Performance from 'src/views/apps/logistics/dashboard/Performance'
-import CardWidgetsSalesCountry from 'src/views/apps/logistics/dashboard/SalesCountry'
-import ExternalLinks from 'src/views/apps/logistics/dashboard/ExternalLinks'
 import StatusCards from 'src/views/apps/logistics/dashboard/StatusCards'
-import AnalyticsBudgetReport from 'src/views/dashboards/AnalyticsBudgetReport'
-import Typewriter from 'src/components/Typewriter'
 import api from 'src/@core/components/api-client'
 import LogisticsDeliveryExceptions from 'src/views/apps/logistics/dashboard/LogisticsDeliveryExceptions'
-import YouTubeIcon from '@mui/icons-material/YouTube'
-import YouTube from 'react-youtube'
 import AnalyticsReceiptReport from 'src/views/dashboards/AnalyticsReceiptReport'
-import AnalyticsBugetOpen from 'src/views/dashboards/AnalyticsBugetOpen'
+import AnalyticsCongratulations from 'src/views/dashboards/AnalyticsCongratulations'
+import { DailyReport } from '../home'
+import moment from 'moment'
+import AnalyticsTotalPatients from 'src/views/dashboards/AnalyticsTotalPatients'
+import ExternalLinks from 'src/views/apps/logistics/dashboard/ExternalLinks'
+import InadimplenciaRadialBarChart from './../../views/apps/logistics/dashboard/InadimplenciaRadialBarChart';
+import DespesasDonutChart from 'src/views/apps/logistics/dashboard/DespesasDonutChart'
 
+type listFilterType =
+  | 'none'
+  | 'expense'
+  | 'revenue'
+  | 'paid'
+  | 'year'
+  | 'week'
+  | 'month'
+  | 'open'
+  | 'daily'
+  | 'revenue-month'
+  | 'paid-month'
+  | 'revenue-daily'
+  | 'paid-daily'
+  | 'overdue'
+  | 'expense-paid'
+  | 'expense-open'
 
-const items = [
-  { label: 'Paciente', path: '/patient/list' },
-  { label: 'Agenda', path: '/calendar' },
-  { label: 'Orçamentos', path: '/budgets' },
-  { label: 'Clínica', path: '/pages/account-settings/account/' },
-  { label: 'Contratos', path: '/contracts' },
-  { label: 'Financeiro', path: '/financial' },
-  { label: 'Tarefas', path: '/kanban' },
-  { label: 'Chat CRM', path: '/chat/conversation' }
-]
-
-const phrases = [
-  'Você não veio até aqui pra ser mediano.',
-  'Todo dia é uma nova chance de fazer melhor.',
-  'Disciplina hoje. Liberdade amanhã.',
-  'O seu futuro está sendo construído agora.',
-  'Você nasceu para impactar vidas.',
-  'Não se esqueça: excelência é um hábito.',
-  'Grandes profissionais se constroem nos bastidores.',
-  'Você é o diferencial da sua clínica.',
-  'Persistência é o que separa os bons dos excelentes.',
-  'A jornada é difícil, mas o destino vale a pena.',
-  'Seja o profissional que você gostaria de encontrar.',
-  'Crescer exige coragem. E você tem de sobra.',
-  'Todo atendimento é uma oportunidade de transformação.',
-  'Você é mais capaz do que imagina.',
-  'A sua constância é mais importante que a sua motivação.',
-  'Lembre-se do porquê você começou.',
-  'Seu trabalho transforma sorrisos, rostos e histórias.',
-  'Sonhos grandes pedem ações ousadas.',
-  'É na rotina que o sucesso se esconde.',
-  'Profissional de verdade cuida dos detalhes.',
-  'Você não precisa ser perfeito. Precisa ser consistente.',
-  'Quando você evolui, sua clínica cresce junto.',
-  'Coragem é continuar mesmo quando ninguém está vendo.',
-  'Você está exatamente onde deveria estar.',
-  'Continue firme. Você está mais perto do que pensa.',
-  'Se desafie todos os dias. É assim que se cresce.',
-  'Seu propósito vale cada esforço.',
-  'Orgulhe-se da sua trajetória. Você está construindo algo grande.',
-  'Você não está sozinho. A jornada é coletiva.',
-  'Mais do que um profissional, você é um exemplo.',
-  'A sua energia transforma o ambiente ao seu redor.',
-  'Gestão clara, crescimento natural.'
-]
+type FinancialType = {
+  id: string
+  phone: string
+  name: string
+}
 
 const Start = () => {
   const [openModalConfirmRegistration, setOpenModalConfirmRegistration] = useState<boolean>(false)
 
   const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
   const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md'))
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const router = useRouter()
   const { settings, saveSettings } = useSettings()
   const { user } = useContext(AuthContext)
 
-  const mode = settings.mode
+  const [reportData, setReportData] = useState<null | DailyReport>(null)
+  const [generatingReport, setGeneratingReport] = useState(false)
+  const monthNames = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+  ]
+  const [reportsTypes, setReportsTypes] = useState(['Resumo Diário', 'Resumo Mês', 'Resumo Total', ...monthNames])
+  const [selectedReportType, setSelectedReportType] = useState(reportsTypes[0])
+  const handleReportTypeChange = (value: string) => {
+    setSelectedReportType(value)
+  }
+  const [dataDebits, setdataDebits] = useState<any>([])
+
+  const [listFilter, setListFilter] = useState<listFilterType>('none')
+
+  const [dataDebitsFiltered, setDataDebitsFiltered] = useState<any>([])
+  const [selectedFilterDate, setSelectedFilterDate] = useState<dayjs.Dayjs | null>(null)
+  const [filterDueStart, setFilterDueStart] = useState<dayjs.Dayjs | null>(null)
+  const [filterDueEnd, setFilterDueEnd] = useState<dayjs.Dayjs | null>(null)
+
+  const [filterPayStart, setFilterPayStart] = useState<dayjs.Dayjs | null>(null)
+  const [filterPayEnd, setFilterPayEnd] = useState<dayjs.Dayjs | null>(null)
+  useEffect(() => {
+    let filtered = [...dataDebits]
+
+    if (selectedFilterDate) {
+      const selectedDate = selectedFilterDate.toDate()
+      const selectedYear = selectedDate.getFullYear()
+      const selectedMonth = selectedDate.getMonth()
+      const selectedDay = selectedDate.getDate()
+
+      filtered = filtered.filter((item: any) => {
+        const [day, month, year] = item.date.split('/').map(Number)
+        const itemDate = new Date(year, month - 1, day)
+
+        return (
+          itemDate.getFullYear() === selectedYear &&
+          itemDate.getMonth() === selectedMonth &&
+          itemDate.getDate() === selectedDay
+        )
+      })
+    }
+
+    if (filterDueStart || filterDueEnd) {
+      filtered = filtered.filter((item: any) => {
+        if (!item.dueDate) return false
+
+        const itemDueDate = new Date(item.dueDate)
+        itemDueDate.setUTCHours(0, 0, 0, 0)
+
+        const start = filterDueStart ? filterDueStart.toDate() : null
+        const end = filterDueEnd ? filterDueEnd.toDate() : null
+
+        if (start) {
+          start.setUTCHours(0, 0, 0, 0)
+          if (itemDueDate < start) return false
+        }
+
+        if (end) {
+          end.setUTCHours(0, 0, 0, 0)
+          if (itemDueDate > end) return false
+        }
+
+        return true
+      })
+    }
+
+    if (filterPayStart || filterPayEnd) {
+      filtered = filtered.filter((item: any) => {
+        if (!item.paymentDate) return false
+
+        const itemPayDate = new Date(item.paymentDate)
+        const localDate = new Date(itemPayDate.getUTCFullYear(), itemPayDate.getUTCMonth(), itemPayDate.getUTCDate()) // remove o offset
+
+        const start = filterPayStart ? new Date(filterPayStart.toDate().setHours(0, 0, 0, 0)) : null
+        const end = filterPayEnd ? new Date(filterPayEnd.toDate().setHours(23, 59, 59, 999)) : null
+
+        if (start && localDate < start) return false
+        if (end && localDate > end) return false
+
+        return true
+      })
+    }
+
+    switch (listFilter) {
+      case 'year': {
+        const currentYear = new Date().getFullYear()
+        filtered = filtered.filter((item: any) => {
+          const [, , year] = item.date.split('/').map(Number)
+
+          return year === currentYear
+        })
+        break
+      }
+      case 'month': {
+        const now = new Date()
+        const currentMonth = now.getMonth()
+        const currentYear = now.getFullYear()
+        filtered = filtered.filter((item: any) => {
+          const [day, month, year] = item.date.split('/').map(Number)
+          const itemDate = new Date(year, month - 1, day)
+
+          return itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear
+        })
+        break
+      }
+      case 'week': {
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        const startOfWeek = new Date(today)
+        startOfWeek.setDate(today.getDate() - today.getDay())
+        const endOfWeek = new Date(startOfWeek)
+        endOfWeek.setDate(startOfWeek.getDate() + 6)
+        endOfWeek.setHours(23, 59, 59, 999)
+        filtered = filtered.filter((item: any) => {
+          const [day, month, year] = item.date.split('/').map(Number)
+          const itemDate = new Date(year, month - 1, day)
+
+          return itemDate >= startOfWeek && itemDate <= endOfWeek
+        })
+        break
+      }
+      case 'expense-paid':
+        filtered = filtered.filter((item: any) => item.type === 'E' && item.isPaid)
+        break
+
+      case 'expense-open':
+        filtered = filtered.filter((item: any) => item.type === 'E' && !item.isPaid)
+        break
+      case 'expense':
+        filtered = filtered.filter((item: any) => item.type === 'E')
+        break
+      case 'revenue':
+        filtered = filtered.filter((item: any) => item.type === 'R')
+        break
+      case 'paid':
+        filtered = filtered.filter((item: any) => item.isPaid)
+        break
+      case 'open':
+        filtered = filtered.filter((item: any) => !item.isPaid)
+        break
+      case 'daily': {
+        filtered = filtered.filter((item: any) => {
+          const isCreatedToday = item.date && dayjs(item.date, 'DD/MM/YYYY').isSame(dayjs(), 'day')
+
+          const isPaidToday = item.isPaid && item.paymentDate && dayjs(item.paymentDate).isSame(dayjs(), 'day')
+
+          return isCreatedToday || isPaidToday
+        })
+        break
+      }
+      case 'paid-daily': {
+        const todayYMD = new Date().toISOString().slice(0, 10)
+
+        filtered = filtered.filter((item: any) => {
+          if (item.type !== 'R') return false
+
+          const isSamePaymentDay = item.isPaid && item.paymentDate && dayjs(item.paymentDate).isSame(dayjs(), 'day')
+
+          const isSameDueDay = item.dueDate && new Date(item.dueDate).toISOString().slice(0, 10) === todayYMD
+
+          return isSamePaymentDay || isSameDueDay
+        })
+
+        break
+      }
+      case 'revenue-daily': {
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        filtered = filtered.filter((item: any) => {
+          const [day, month, year] = item.date.split('/').map(Number)
+          const itemDate = new Date(year, month - 1, day)
+
+          return item.type === 'R' && itemDate.getTime() === today.getTime()
+        })
+        break
+      }
+      case 'paid-month': {
+        filtered = filtered.filter((item: any) => {
+          return item.isPaid && item.paymentDate && dayjs(item.paymentDate).isSame(dayjs(), 'month')
+        })
+        break
+      }
+      case 'revenue-month': {
+        const now = new Date()
+        const currentMonth = now.getMonth()
+        const currentYear = now.getFullYear()
+        filtered = filtered.filter((item: any) => {
+          const [day, month, year] = item.date.split('/').map(Number)
+          const itemDate = new Date(year, month - 1, day)
+
+          return item.type === 'R' && itemDate.getMonth() === currentMonth && itemDate.getFullYear() === currentYear
+        })
+        break
+      }
+      case 'overdue': {
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+
+        filtered = filtered.filter((item: any) => {
+          if (!item.dueDate || item.status !== 'O') return false
+
+          const dueDate = new Date(item.dueDate)
+          dueDate.setHours(0, 0, 0, 0)
+
+          return dueDate < today
+        })
+
+        break
+      }
+      case 'none':
+      default:
+        break
+    }
+
+    setDataDebitsFiltered(filtered)
+  }, [listFilter, dataDebits, selectedFilterDate, filterDueStart, filterDueEnd, filterPayStart, filterPayEnd])
+
+  const receber = dataDebitsFiltered
+    .filter((d: any) => d.type === 'R' && !d.isPaid)
+    .reduce((a: number, c: any) => parseFloat(c.value) + a, 0)
+
+  const currentHour = new Date().getHours()
+
+  const getGreeting = () => {
+    if (currentHour >= 5 && currentHour < 12) {
+      return 'Bom dia'
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'Boa tarde'
+    } else {
+      return 'Boa noite'
+    }
+  }
 
   const handleCloseModalConfirmRegistration = () => {
     setOpenModalConfirmRegistration(false)
-  }
-
-  const handleRouter = (path: string) => {
-    router.push(path)
-    saveSettings({ ...settings, navCollapsed: false })
   }
 
   useEffect(() => {
@@ -130,47 +334,15 @@ const Start = () => {
   if (isSm) columns = 2
   if (isMdUp) columns = 4
 
-  const dataFake = {
-    agendados: 5,
-    atendidos: 9,
-    desmarcados: 7,
-    aniversariantes: 0,
-    gerencia: {
-      agendamentos: 20,
-      financeiro: 40,
-      crc: 25,
-      chatCrm: 37
-    }
-  }
-
-  const [selectedPhrase, setSelectedPhrase] = useState('')
-
-  const [key, setKey] = useState(0)
-
-  useEffect(() => {
-    const setRandomPhrase = () => {
-      const random = Math.floor(Math.random() * phrases.length)
-      setSelectedPhrase(phrases[random])
-      setKey(prev => prev + 1)
-    }
-
-    setRandomPhrase() // inicial
-    const interval = setInterval(setRandomPhrase, 20000)
-
-    return () => clearInterval(interval)
-  }, [])
-
   const userData = JSON.parse(window.localStorage.getItem('userData') || '{}')
-  const professionalName = userData.professional?.name ? userData.professional?.name : null
   const professional = userData?.professional || null
 
   const isAdmin = professional?.isAdmin === true || !professional
-  const isRecepcionista = professional?.specialty === 'recepcionista' && !!professional
-  const isProfissional = professional?.specialty !== 'recepcionista' && !!professional
 
   const [data, setData] = useState({
     agendados: 0,
     atendidos: 0,
+    confirmados: 0,
     retornos: 0,
     desmarcados: 0,
     aniversariantes: 0
@@ -218,23 +390,84 @@ const Start = () => {
     fetchData()
   }, [periodo])
 
-  const currentHour = new Date().getHours()
+  const handleDownloadReportFile = async (blobData: any, title: string) => {
+    const url = window.URL.createObjectURL(new Blob([blobData]))
 
-  const getGreeting = () => {
-    if (currentHour >= 5 && currentHour < 12) {
-      return 'Bom dia'
-    } else if (currentHour >= 12 && currentHour < 18) {
-      return 'Boa tarde'
-    } else {
-      return 'Boa noite'
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', `${title}.xlsx`)
+    document.body.appendChild(link)
+    link.click()
+    if (link.parentNode) {
+      link.parentNode.removeChild(link)
     }
   }
 
-  const [openModal, setOpenModal] = useState(false)
+  const handleDownloadReport = async () => {
+    let params = {}
+    let name = 'resumo-diario'
+    if (selectedReportType === 'Resumo Mês') {
+      const startDate = moment().startOf('month').startOf('day').toISOString()
+      const endDate = moment().endOf('month').endOf('day').toISOString()
+      name = 'resumo-mensal'
+      params = { startDate, endDate }
+    }
+    if (selectedReportType === 'Resumo Total') {
+      const startDate = moment('2010-03-13').startOf('day').toISOString()
+      const endDate = moment().endOf('day').toISOString()
+      name = 'resumo-total'
+      params = { startDate, endDate }
+    }
 
-  const toggleVideo = () => {
-    setOpenModal(true)
+    if (monthNames.includes(selectedReportType)) {
+      const monthIndex = monthNames.indexOf(selectedReportType) // 0 = Janeiro
+      const startDate = moment().month(monthIndex).startOf('month').startOf('day').toISOString()
+      const endDate = moment().month(monthIndex).endOf('month').endOf('day').toISOString()
+      name = `resumo-${selectedReportType.toLowerCase()}`
+      params = { startDate, endDate }
+    }
+
+    const { data } = await api.get('/reports/generate/download', {
+      responseType: 'blob',
+      params
+    })
+    handleDownloadReportFile(data, name)
   }
+
+  const isAdminOrProfessional =
+    (userData?.professional && userData?.professional?.isAdmin) ||
+    (userData?.professional === null && userData.role === 'admin')
+  const isReceptionist = userData?.professional?.specialty === 'recepcionista'
+
+  const generateDailyReport = async () => {
+    setGeneratingReport(true)
+    let params = {}
+    if (selectedReportType === 'Resumo Mês') {
+      const startDate = moment().startOf('month').startOf('day').toISOString()
+      const endDate = moment().endOf('month').endOf('day').toISOString()
+      params = { startDate, endDate }
+    }
+    if (selectedReportType === 'Resumo Total') {
+      const startDate = moment('2010-03-13').startOf('day').toISOString()
+      const endDate = moment().endOf('day').toISOString()
+      params = { startDate, endDate }
+    }
+
+    if (monthNames.includes(selectedReportType)) {
+      const monthIndex = monthNames.indexOf(selectedReportType)
+      const startDate = moment().month(monthIndex).startOf('month').startOf('day').toISOString()
+      const endDate = moment().month(monthIndex).endOf('month').endOf('day').toISOString()
+      params = { startDate, endDate }
+    }
+
+    const { data } = await api.get(`reports/generate`, { params })
+    setReportData(data)
+    setTimeout(() => {
+      setGeneratingReport(false)
+    }, 4000)
+  }
+
+  const [openModal, setOpenModal] = useState(false)
 
   const handleClose = () => {
     setOpenModal(false)
@@ -248,11 +481,42 @@ const Start = () => {
     }
   }
 
+  const [period, setPeriod] = useState<'day' | 'week' | 'month' | 'all'>('month')
+
+  const loadTransactions = async () => {
+    const userData = JSON.parse(window.localStorage.getItem('userData') || '{}')
+    const isAdmin = userData?.isAdmin === true
+
+    const { data } = await api.get('/transactions')
+
+    const filteredData = isAdmin ? data : data.filter((item: any) => item.type === 'R')
+
+    setdataDebits(
+      filteredData.map((item: any) => ({
+        ...item,
+        status: item.isPaid ? 'P' : 'O',
+        date: dayjs(item.referenceDate || item.created_at).format('DD/MM/YYYY')
+      }))
+    )
+  }
+
+  useEffect(() => {
+    loadTransactions()
+  }, [period])
+  const professionalName = userData.professional?.name ? userData.professional?.name : null
+
   return (
     <>
       <Box p={2}>
+        <Box>
+          <Typography sx={{ fontSize: 26 }}>
+            <strong style={{ color: '#8B18BB' }}> Olá, {professionalName}!</strong> {getGreeting()}
+          </Typography>
+          <Typography sx={{ fontSize: 17 }} color='text.secondary'>
+            <span style={{ opacity: 0.5 }}>|</span>
+          </Typography>
+        </Box>
         <Grid container spacing={2}>
-
           <Grid item xs={12} sm={5} md={2.4}>
             <Card
               onClick={() => router.push('/calendar')}
@@ -538,22 +802,20 @@ const Start = () => {
               </CardContent>
             </Card>
           </Grid>
-
-          
         </Grid>
 
-        <Grid container spacing={2} sx = {{ mt: 2 }}>
+        <Grid container spacing={2} sx={{ mt: 2 }}>
           {userData?.planType !== 'E' && isAdmin && (
             <>
-            <Grid item xs={12} md={9.6}>
+              <Grid item xs={12} md={9.6}>
                 <LogisticsShipmentStatistics />
               </Grid>
             </>
           )}
 
-          <Grid item xs={12} sm={4} md={2.4}>
+          <Grid item xs={12} sm={4} md={2.4}> 
             <Card
-              onClick={() => router.push('/crc?section=aniversariantes')}
+              onClick={() => router.push('/crc?section=aniversariantes')} 
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -619,42 +881,57 @@ const Start = () => {
         </Grid>
       </Box>
 
-      {/* {userData?.planType !== 'E' && isAdmin && (
-        <>
-          <Grid container spacing={4} sx={{ mt: 0 }}>
-            <Grid item xs={12} md={4}>
-              <Performance />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ExternalLinks />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <CardWidgetsSalesCountry />
-            </Grid>
-          </Grid>
-        </>
-      )} */}
       {userData?.planType !== 'E' && isAdmin && <StatusCards />}
 
-      <Grid container spacing={2} sx={{mt:2}}>
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid item xs={12} md={4}>
+          <AnalyticsCongratulations
+            generateReport={generateDailyReport}
+            reportsTypes={reportsTypes}
+            changeSelectedReportType={handleReportTypeChange}
+            selectedReportType={selectedReportType}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={8}>
+          <AnalyticsTotalPatients
+            selectedReportType={selectedReportType}
+            generatingReport={generatingReport}
+            reportData={reportData}
+            generateReport={handleDownloadReport}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3} sx={{ mt: 2 }}>
+        {userData?.planType !== 'E' && isAdmin && (
+          <>
+            <Grid container spacing={4} sx={{ mt: 0 }}>
+              <Grid item xs={12} md={4}>
+                <ExternalLinks />
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                <InadimplenciaRadialBarChart dataDebitsFiltered={dataDebitsFiltered} />
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                <DespesasDonutChart dataDebitsFiltered={dataDebitsFiltered} />
+              </Grid>
+            </Grid>
+          </>
+        )}
+
+
+
+
+        {/* <Grid container spacing={2} sx={{mt:2}}>
         <Grid item xs={12} sm={12} md={9.6}>
                           <AnalyticsBudgetReport />
-                        </Grid>
+                          </Grid> */}
       </Grid>
 
       <ModalConfirmRegistration open={openModalConfirmRegistration} onClose={handleCloseModalConfirmRegistration} />
-
-      <Dialog open={openModal} onClose={handleClose} maxWidth='md' fullWidth>
-        <DialogTitle>Assistir Vídeo</DialogTitle>
-        <DialogContent>
-          <YouTube opts={opts} videoId={'mWKUDE2Wjno'} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color='primary'>
-            Fechar
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   )
 }
@@ -665,3 +942,4 @@ Start.aclAbilities = { action: 'read', subject: 'start' }
 
 // Start.requiredPlan = 'E'
 export default Start
+

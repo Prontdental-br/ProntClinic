@@ -310,7 +310,7 @@ const Calendar = (props: CalendarType) => {
         wrapper.className = 'fc-button'
         wrapper.style.marginRight = '4px' // mesmo espaçamento lateral dos outros
 
-        ReactDOM.render(
+        /* ReactDOM.render(
           <Button
             sx={{
               mb: 0,
@@ -326,7 +326,7 @@ const Calendar = (props: CalendarType) => {
             VÍDEOS
           </Button>,
           wrapper
-        )
+        ) */
 
         parent.replaceChild(wrapper, el)
       }
@@ -548,31 +548,48 @@ const Calendar = (props: CalendarType) => {
       },
 
       eventDidMount({ event, el }: any) {
-        const tagColor = tagColors[event._def.extendedProps.tag.color] || '#000'
+        const tagColor = tagColors[event._def.extendedProps.tag.color] || '#00FCFE'
 
         el.style.marginRight = '2px'
 
         // el.style.position = 'relative'
 
-        const sideBar = document.createElement('div')
-        sideBar.style.position = 'absolute'
-        sideBar.style.left = '0'
-        sideBar.style.top = '0'
-        sideBar.style.bottom = '0'
-        sideBar.style.width = '4px'
-        sideBar.style.borderRadius = '0px'
-        sideBar.style.backgroundColor = tagColor
+        const sideBar = document.createElement('div')
+        sideBar.style.position = 'absolute'
+        sideBar.style.left = '0'
+        sideBar.style.top = '0'
+        sideBar.style.right = '0' 
+        sideBar.style.height = '8px'
+        sideBar.style.width = 'auto'
+        sideBar.style.borderRadius = '0px'
+        sideBar.style.backgroundColor = '#00FCFE'
 
         // el.style.position = 'relative'
         el.appendChild(sideBar)
 
+        const logoIcon = document.createElement('img')
+        logoIcon.src = '/images/logos/ICO 150 BRANCO.png'
+        logoIcon.style.height = '16px'
+        logoIcon.style.width = '16px'
+        logoIcon.style.marginRight = '4px'
+        logoIcon.style.verticalAlign = 'middle'
+
         const extraInfo = document.createElement('div')
-        extraInfo.innerText = `• ${event._def.extendedProps.tag.name}`
+
+       // extraInfo.innerText = `• ${event._def.extendedProps.tag.name}`
         extraInfo.style.fontSize = '.9em'
         extraInfo.style.fontWeight = 'bold'
         extraInfo.style.marginTop = '.3em'
         extraInfo.style.fontFamily = 'Inter'
         extraInfo.style.color = tagColor
+
+        
+
+        const tagText = document.createTextNode(event._def.extendedProps.tag.name)
+
+        extraInfo.appendChild(logoIcon)
+
+        extraInfo.appendChild(tagText)
 
         el.querySelector('.fc-event-title')?.appendChild(extraInfo)
 

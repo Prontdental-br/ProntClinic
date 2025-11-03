@@ -11,18 +11,19 @@ const navigation = (): VerticalNavItemsType => {
   const professional = userData?.professional
   const planType = userData?.planType || null
 
-  console.log('Professional:', professional) 
-  console.log('PlanType:', planType)         
+ // console.log('Professional:', professional)
+ // console.log('PlanType:', planType)
 
   const isAdmin = (professional?.isAdmin === true || !professional)
-  console.log('IsAdmin:', isAdmin) 
+
+  //console.log('IsAdmin:', isAdmin)
 
   const isRecepcionista = professional?.specialty === 'recepcionista' && !!professional
   const isProfissional = professional?.specialty !== 'recepcionista' && !!professional
 
 
   let items: VerticalNavItemsType = [
-    {
+    /* {
       title: 'Início',
       icon: 'mdi:home-outline',
       badgeColor: 'error',
@@ -33,10 +34,10 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:view-dashboard-outline',
       badgeColor: 'error',
       path: '/home'
-    },
+    }, */
     {
       title: 'Dashboard',
-      icon: 'mdi:view-dashboard-outline',
+      icon: 'mdi:grid-large',
       badgeColor: 'error',
       path: '/dashboard'
     },
@@ -45,90 +46,88 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Paciente',
-      icon: 'mdi:account-outline',
+      icon: 'mdi:account-box-outline',
       path: '/patient/list'
     },
     {
       title: 'Agenda',
-      icon: 'mdi:calendar-blank-outline',
+      icon: 'mdi:clock-time-three-outline',
       path: '/calendar'
     },
     {
       title: 'Orçamentos',
-      icon: 'mdi:finance',
+      icon: 'mdi:file-document-outline',
       path: '/budgets'
+    },
+    {
+      title: 'Chat CRM',
+      icon: 'mdi:forum-outline',
+      path: '/chat/conversation',
+
+      // auth: true,
+    },
+    {
+      title: 'CRC',
+      icon: 'mdi:finance',
+      path: '/crc',
+
+      // auth: true,
+    },
+    {
+      title: 'Protético',
+      icon: 'mdi:tooth-outline',
+      path: '/prosthesis',
+      auth: true,
     },
 
     // {
-    //   title: 'Marketing',
-    //   icon: 'material-symbols:campaign',
-    //   path: '/marketing',
-    //   auth: true,
+    //   title: 'Marketing',
+    //   icon: 'material-symbols:campaign',
+    //   path: '/marketing',
+    //   auth: true,
     // },
-    
+
     {
       sectionTitle: 'Administração'
     },
     {
-      title: 'Clínica',
-      icon: 'mdi:home-city-outline',
+      title: 'Configurações',
+      icon: 'mdi:cog-outline',
       path: isAdmin
         ? '/pages/account-settings/account/'
         : '/pages/account-settings/billing/'
     },
     {
+      title: 'Financeiro',
+      icon: 'mdi:wallet-outline',
+      path: '/financial',
+
+      auth: true,
+    },
+    {
       title: 'Contratos',
-      icon: 'material-symbols-light:contract',
+      icon: 'mdi:handshake-outline',
       path: '/contracts',
       auth: true,
     },
-    {
-      title: 'Financeiro',
-      icon: 'mdi:currency-usd',
-      path: '/financial',
-      
-      auth: true,
-    },
 
     // {
-    //   title: 'Clara IA',
-    //   icon: 'mdi:message-outline',
-    //   path: '/ia-agent/settings/create',
-    //   auth: true
+    //   title: 'Clara IA',
+    //   icon: 'mdi:message-outline',
+    //   path: '/ia-agent/settings/create',
+    //   auth: true
     // },
 
     // {
-    //   title: 'Tarefas',
-    //   path: '/kanban',
-    //   icon: 'mdi:format-list-bulleted-type',
-    //   auth: true,
+    //   title: 'Tarefas',
+    //   path: '/kanban',
+    //   icon: 'mdi:format-list-bulleted-type',
+    //   auth: true,
     // },
 
-    {
-      title: 'Protético',
-      path: '/prosthesis',
-      icon: 'mdi:tooth-outline',
-      auth: true,
-    },
-
-    {
-      title: 'Chat CRM',
-      icon: 'mdi:message-text-outline',
-      path: '/chat/conversation',
-
-      // auth: true,
-    }, 
-    
-    {
-      title: 'CRC',
-      path: '/crc',
-      icon: 'mdi:cash',
-
-      // auth: true,
-    },
     {
       title: 'Estoque',
-      icon: 'vaadin:stock',
+      icon: 'mdi:warehouse',
       path: '/stock'
     },
     {
@@ -137,27 +136,27 @@ const navigation = (): VerticalNavItemsType => {
 
     {
       title: 'Planos',
-      icon: 'mdi:storefront-outline',
+      icon: 'mdi:tag-multiple-outline',
       path: '/pricing',
     },
-    
+
     {
       title: 'Tutorial',
-      icon: 'solar:help-linear',
+      icon: 'mdi:book-open-outline',
       path: '/help-center'
     },
     {
       title: 'Suporte',
-      icon: 'mdi:account-tie-outline',
+      icon: 'mdi:headset',
       path: '/contact-seller'
     }
 
     // {
-    //   path: '/acl',
-    //   action: 'read',
-    //   subject: 'acl-page',
-    //   title: 'Access Control',
-    //   icon: 'mdi:shield-outline'
+    //   path: '/acl',
+    //   action: 'read',
+    //   subject: 'acl-page',
+    //   title: 'Access Control',
+    //   icon: 'mdi:shield-outline'
     // }
   ]
 
